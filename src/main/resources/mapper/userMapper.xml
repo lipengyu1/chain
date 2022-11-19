@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.UserDao">
+    <select id="selectUserById" resultType="com.zxn.chain.dto.UserDto">
+        select * from user where id = #{id} and status = 1;
+    </select>
+    <select id="queryUserPage" resultType="com.zxn.chain.dto.UserDto">
+        select * from user
+        <where>
+            status = 1
+            <if test="managerName != null and managerName!= ''" >
+                and manager_name = #{managerName}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="queryUserCount" resultType="java.lang.Integer">
+        select count(*) from user
+        <where>
+            status = 1
+            <if test="managerName != null and managerName!= ''" >
+                and manager_name = #{managerName}
+            </if>
+        </where>
+    </select>
+    <update id="updateUser" parameterType="com.zxn.chain.entity.User">
+        update user
+        set manager_name = #{managerName},
+            manager_sex = #{managerSex},
+            manager_professional = #{managerProfessional},
+            manager_level = #{managerLevel},
+            manager_tel = #{managerTel},
+            username = #{username},
+            password = #{password},
+            manager_email = #{managerEmail},
+            remarks = #{remarks}
+        where id = #{id}
+    </update>
+    <update id="removeUser" parameterType="com.zxn.chain.entity.User">
+        update user
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="userLogin" resultType="com.zxn.chain.entity.User">
+        select id,manager_name,manager_sex,manager_professional,manager_level,manager_tel,username,password,manager_email,remarks,status,role
+        from user
+        where username = #{username}
+    </select>
+    <update id="setNewPasswd" parameterType="java.util.Map">
+        update user
+        set password = #{newPasswd}
+        where manager_email = #{email}
+    </update>
+    <select id="getUserEmail" resultType="com.zxn.chain.entity.User">
+        select manager_email from user
+        where manager_email = #{email}
+    </select>
+    <insert id="userRegister" parameterType="com.zxn.chain.entity.User">
+        insert into user (id,username,password,manager_email,role)
+        values (#{id},#{username},#{password},#{managerEmail},#{role})
+    </insert>
+</mapper>

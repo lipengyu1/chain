@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.StoreManagerDao">
+    <select id="queryStoreManagerPage"  resultType="com.zxn.chain.dto.StoreManagerDto">
+        select id,store_employee_number,store_employee_name,username,store_employee_tel,
+               store_location,store_sale_status,store_complains,remarks,role from storemanager
+        <where>
+            status = 1
+            <if test="storeEmployeeName != null and storeEmployeeName!= ''" >
+                and store_employee_name = #{storeEmployeeName}
+            </if>
+            <if test="storeSaleStatus != null and storeSaleStatus != ''">
+                and store_sale_status = #{storeSaleStatus}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="queryStoreManagerCount" resultType="java.lang.Integer" >
+        select count(*) from storemanager
+        <where>
+            status = 1
+            <if test="storeEmployeeName != null and storeEmployeeName!= ''" >
+                and store_employee_name = #{storeEmployeeName}
+            </if>
+            <if test="storeSaleStatus != null and storeSaleStatus != ''">
+                and store_sale_status = #{storeSaleStatus}
+            </if>
+        </where>
+    </select>
+    <select id="selectStoreManagerById" resultType="com.zxn.chain.entity.StoreManager">
+        select * from storemanager where id = #{id} and status = 1;
+    </select>
+    <update id="removeStoreManager" parameterType="com.zxn.chain.entity.StoreManager">
+        update storemanager
+        set status = 0
+        where id = #{id}
+    </update>
+    <update id="updateStoreManager" parameterType="com.zxn.chain.entity.StoreManager">
+        update storemanager
+        set store_employee_number = #{storeEmployeeNumber},
+            store_employee_name = #{storeEmployeeName},
+            username = #{username},
+            password = #{password},
+            store_employee_tel = #{storeEmployeeTel},
+            store_sale_status = #{storeSaleStatus},
+            store_location = #{storeLocation},
+            store_complains = #{storeComplains},
+            remarks = #{remarks}
+        where id = #{id}
+    </update>
+    <select id="storeManagerLogin" resultType="com.zxn.chain.entity.StoreManager">
+        select id,store_employee_number,store_employee_name,username,password,
+               store_sale_status,store_complains,store_employee_tel,email,store_location,remarks,status,role
+        from storemanager
+        where username = #{username}
+    </select>
+    <update id="setNewPasswd" parameterType="java.util.Map">
+        update storemanager
+        set password = #{newPasswd}
+        where email = #{email}
+    </update>
+    <select id="getEmpEmail" resultType="com.zxn.chain.entity.StoreManager">
+        select email from storemanager
+        where email = #{email}
+    </select>
+    <insert id="managerRegister" parameterType="com.zxn.chain.entity.StoreManager">
+        insert into storemanager (id,username,password,email,role )
+        values (#{id},#{username},#{password},#{email},#{role})
+    </insert>
+</mapper>
