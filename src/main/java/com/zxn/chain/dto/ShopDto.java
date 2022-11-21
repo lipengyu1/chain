@@ -1,11 +1,12 @@
-package com.zxn.chain.entity;
+package com.zxn.chain.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class Shop {
+public class ShopDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     /**
@@ -16,6 +17,10 @@ public class Shop {
      * 商品编号
      */
     private Long shopNum;
+    /**
+     * 供应商
+     */
+    private String shopSupplier;
     /**
      * 供应商id
      */
@@ -41,13 +46,7 @@ public class Shop {
      */
     private String category;
     /**
-     * 1正常0删除
-     */
-    private Integer status;
-    /**
      * 备注
      */
     private String remarks;
-
-
 }

@@ -62,7 +62,7 @@ public class SupplierController {
             @ApiImplicitParam(name = "shopCategory",value = "商品类型",required = false)
     })
     public Response<BasePageResponse<SupplierDto>> page(int pageNo, int pageSize, String supplierAddress,String shopCategory){
-        log.info("pageNo={},pageSize={},name={}",pageNo,pageSize,supplierAddress,shopCategory);
+        log.info("pageNo={},pageSize={},supplierAddress={},shopCategory={}",pageNo,pageSize,supplierAddress,shopCategory);
         BasePageResponse<SupplierDto> response = supplierService.querySupplierPage(pageNo,pageSize,supplierAddress,shopCategory);
         return Response.success(response);
     }

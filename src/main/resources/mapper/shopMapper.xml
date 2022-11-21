@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.ShopDao">
+    <insert id="saveShop" parameterType="com.zxn.chain.dto.ShopDto">
+        insert into shop(id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks)
+        values (#{id},#{shopName},#{shopNum},#{shopSupplierId},#{shopBase},#{restockingPrice},#{sellPrice},#{quantity},#{category},#{remarks})
+    </insert>
+    <update id="removeShop" parameterType="com.zxn.chain.entity.Shop">
+        update shop
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="queryShopPage" resultType="com.zxn.chain.dto.ShopDto">
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks
+        from shop
+        <where>
+            status = 1
+            <if test="shopName != null and shopName!= ''" >
+                and shop_name = #{shopName}
+            </if>
+            <if test="category != null and category!= ''" >
+                and category = #{category}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="queryShopCount"  resultType="java.lang.Integer">
+        select count(*)
+        from shop
+        <where>
+            status = 1
+            <if test="shopName != null and shopName!= ''" >
+                and shop_name = #{shopName}
+            </if>
+            <if test="category != null and category!= ''" >
+                and category = #{category}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <update id="updateShop" parameterType="com.zxn.chain.dto.ShopDto">
+        update shop
+        set shop_name = #{shopName},
+            shop_num = #{shopNum},
+            shop_supplier_id = #{shopSupplierId},
+            shop_base = #{shopBase},
+            restocking_price = #{restockingPrice},
+            sell_price = #{sellPrice},
+            quantity = #{quantity},
+            category = #{category},
+            remarks = #{remarks}
+        where id = #{id}
+    </update>
+    <select id="selectShopById" resultType="com.zxn.chain.dto.ShopDto">
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks
+        from shop
+        where id = #{id}
+    </select>
+</mapper>

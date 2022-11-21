@@ -1,0 +1,19 @@
+package com.zxn.chain.dao;
+
+import com.zxn.chain.dto.ShopDto;
+
+import java.util.List;
+
+public interface ShopDao {
+    void saveShop(ShopDto shopDto);
+
+    void removeShop(Long id);
+
+    List<ShopDto> queryShopPage(int pageNo, int pageSize, String shopName, String category);
+
+    int queryShopCount(int pageNo, int pageSize, String shopName, String category);
+
+    void updateShop(ShopDto shopDto);
+
+    ShopDto selectShopById(Long id);
+}

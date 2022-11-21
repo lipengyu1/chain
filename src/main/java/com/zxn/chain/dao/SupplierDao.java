@@ -16,4 +16,6 @@ public interface SupplierDao {
     void updateSupplier(SupplierDto supplierDto);
 
     SupplierDto selectSupplierById(Long id);
+
+    Long selectSupplierByName(String shopSupplierName);
 }

@@ -46,5 +46,8 @@
     <select id="selectSupplierById" resultType="com.zxn.chain.dto.SupplierDto">
         select id,supplier_name,supplier_address,shop_category,remarks from supplier where id = #{id} and status = 1;
     </select>
+    <select id="selectSupplierByName" resultType="java.lang.Long">
+        select id from supplier where supplier_name = #{shopSupplierName};
+    </select>
 </mapper>
 
