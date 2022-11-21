@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.SupplierDao">
+    <insert id="saveSupplier" parameterType="com.zxn.chain.dto.SupplierDto">
+        insert into supplier (id,supplier_name,supplier_address,shop_category,remarks)
+        values (#{id},#{supplierName},#{supplierAddress}, #{shopCategory}, #{remarks});
+    </insert>
+    <update id="removeSupplier" parameterType="com.zxn.chain.entity.Supplier">
+        update supplier
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="querySupplierPage" resultType="com.zxn.chain.dto.SupplierDto">
+        select  id,supplier_name,supplier_address,shop_category,remarks from supplier
+        <where>
+            status = 1
+            <if test="supplierAddress != null and supplierAddress!= ''" >
+                and supplier_address = #{supplierAddress}
+            </if>
+            <if test="shopCategory != null and shopCategory!= ''" >
+                and shop_Category = #{shopCategory}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="querySupplierCount" resultType="java.lang.Integer">
+        select count(*) from supplier
+        <where>
+            status = 1
+            <if test="supplierAddress != null and supplierAddress!= ''" >
+                and supplier_address = #{supplierAddress}
+            </if>
+            <if test="shopCategory != null and shopCategory!= ''" >
+                and shop_Category = #{shopCategory}
+            </if>
+        </where>
+    </select>
+    <update id="updateSupplier" parameterType="com.zxn.chain.dto.SupplierDto">
+        update supplier
+        set supplier_name = #{supplierName},
+            supplier_address = #{supplierAddress},
+            shop_category = #{shopCategory},
+            remarks = #{remarks}
+        where id = #{id}
+    </update>
+    <select id="selectSupplierById" resultType="com.zxn.chain.dto.SupplierDto">
+        select id,supplier_name,supplier_address,shop_category,remarks from supplier where id = #{id} and status = 1;
+    </select>
+</mapper>
+
