@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.MemberDao">
+    <insert id="saveMember" parameterType="com.zxn.chain.dto.MemberDto">
+        insert into member (id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks)
+        values (#{id},#{memberNum}, #{memberName}, #{memberGrade},#{memberSex},#{memberStatus},#{memberTel},#{remarks});
+    </insert>
+    <update id="removeMember" parameterType="com.zxn.chain.dto.MemberDto">
+        update member
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="queryMemberPage" resultType="com.zxn.chain.dto.MemberDto">
+        select  id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks from member
+        <where>
+            status = 1
+            <if test="memberName != null and memberName!= ''" >
+                and member_name = #{memberName}
+            </if>
+            <if test="memberNum != null and memberNum!= ''" >
+                and member_num = #{memberNum}
+            </if>
+            <if test="memberStatus != null and memberStatus!= ''" >
+                and member_status = #{memberStatus}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="queryMemberCount" resultType="java.lang.Integer">
+        select count(*) from member
+        <where>
+            status = 1
+            <if test="memberName != null and memberName!= ''" >
+                and member_name = #{memberName}
+            </if>
+            <if test="memberNum != null and memberNum!= ''" >
+                and member_num = #{memberNum}
+            </if>
+            <if test="memberStatus != null and memberStatus!= ''" >
+                and member_status = #{memberStatus}
+            </if>
+        </where>
+    </select>
+    <update id="updateMember" parameterType="com.zxn.chain.dto.MemberDto">
+        update member
+        set member_num = #{memberNum},
+            member_name = #{memberName},
+            member_grade = #{memberGrade},
+            member_sex = #{memberSex},
+            member_status = #{memberStatus},
+            member_tel = #{memberTel},
+            remarks = #{remarks}
+        where id = #{id}
+    </update>
+    <select id="selectMemberById" resultType="com.zxn.chain.dto.MemberDto">
+        select id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks
+        from member where id = #{id} and status = 1;
+    </select>
+</mapper>
