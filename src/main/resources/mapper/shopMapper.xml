@@ -54,6 +54,11 @@
     <select id="selectShopById" resultType="com.zxn.chain.dto.ShopDto">
         select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks
         from shop
-        where id = #{id}
+        where id = #{id} and status = 1;
+    </select>
+    <select id="selectShopBySupplierId" resultType="com.zxn.chain.dto.ShopDto">
+        select shop_supplier_id
+        from shop
+        where shop_supplier_id = #{id} and status = 1;
     </select>
 </mapper>

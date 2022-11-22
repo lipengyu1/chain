@@ -1,11 +1,12 @@
-package com.zxn.chain.entity;
+package com.zxn.chain.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class Store {
+public class StoreDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -26,7 +27,7 @@ public class Store {
      */
     private String defaultShipper;
     /**
-     * 负责人编号
+     * 负责人id
      */
     private Long storeLeaderId;
     /**
@@ -41,10 +42,6 @@ public class Store {
      * 创建时间
      */
     private LocalDateTime createTime;
-    /**
-     * 状态 1正常0删除
-     */
-    private Integer status;
     /**
      * 备注
      */

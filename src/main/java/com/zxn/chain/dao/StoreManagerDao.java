@@ -23,4 +23,6 @@ public interface StoreManagerDao {
     StoreManager getEmpEmail(String email);
 
     void managerRegister(StoreManager storeManager);
+
+    StoreManager selectStoreManagerByNumber(Long managerId);
 }

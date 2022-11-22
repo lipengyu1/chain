@@ -1,7 +1,9 @@
 package com.zxn.chain.dao;
 
 import com.zxn.chain.dto.ShopDto;
+import com.zxn.chain.entity.Shop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ShopDao {
@@ -16,4 +18,6 @@ public interface ShopDao {
     void updateShop(ShopDto shopDto);
 
     ShopDto selectShopById(Long id);
+
+    List<ShopDto> selectShopBySupplierId(Long id);
 }

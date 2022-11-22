@@ -67,4 +67,8 @@
         insert into storemanager (id,username,password,email,role )
         values (#{id},#{username},#{password},#{email},#{role})
     </insert>
+    <select id="selectStoreManagerByNumber" resultType="com.zxn.chain.entity.StoreManager">
+        select store_employee_name from storemanager
+        where store_employee_number = #{managerId} and status = 1;
+    </select>
 </mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.StoreDao">
+    <insert id="saveStore" parameterType="com.zxn.chain.dto.StoreDto">
+        insert into store (id,store_num,store_type,store_area,default_shipper,store_leader_name,store_leader_id,store_tel,create_time,remarks)
+        values (#{id},#{storeNum},#{storeType}, #{storeArea}, #{defaultShipper},#{storeLeaderName},#{storeLeaderId},#{storeTel},#{createTime},#{remarks});
+    </insert>
+    <update id="removeStore" parameterType="com.zxn.chain.entity.Store">
+        update store
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="selectByDefaultShipper" resultType="com.zxn.chain.dto.StoreDto">
+        select default_shipper from store where default_shipper = #{defaultShipper} and status = 1;
+    </select>
+    <select id="queryStorePage" resultType="com.zxn.chain.dto.StoreDto">
+        select  id,store_num,store_type,store_area,default_shipper,store_leader_name,store_leader_id,store_tel,create_time,remarks from store
+        <where>
+            status = 1
+            <if test="storeType != null and storeType!= ''" >
+                and store_type = #{storeType}
+            </if>
+            <if test="storeArea != null and storeArea!= ''" >
+                and store_area = #{storeArea}
+            </if>
+            <if test="storeLeaderName != null and storeLeaderName!= ''" >
+                and store_leader_name = #{storeLeaderName}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="querySupplierCount"   resultType="java.lang.Integer">
+        select count(*) from store
+        <where>
+            status = 1
+            <if test="storeType != null and storeType!= ''" >
+                and store_type = #{storeType}
+            </if>
+            <if test="storeArea != null and storeArea!= ''" >
+                and store_area = #{storeArea}
+            </if>
+            <if test="storeLeaderName != null and storeLeaderName!= ''" >
+                and store_leader_name = #{storeLeaderName}
+            </if>
+        </where>
+    </select>
+    <update id="updateStore" parameterType="com.zxn.chain.dto.StoreDto">
+        update store
+        set store_num = #{storeNum},
+            store_type = #{storeType},
+            store_area = #{storeArea},
+            default_shipper = #{defaultShipper},
+            store_leader_name = #{storeLeaderName},
+            store_leader_id = #{storeLeaderId},
+            store_tel = #{storeTel},
+            remarks = #{remarks}
+        where id = #{id}
+    </update>
+    <select id="selectStoreById" resultType="com.zxn.chain.dto.StoreDto">
+        select  id,store_num,store_type,store_area,default_shipper,store_leader_name,store_leader_id,store_tel,create_time,remarks from store
+        where id = #{id} and status = 1;
+    </select>
+</mapper>
