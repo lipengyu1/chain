@@ -20,7 +20,7 @@ public class MemberController {
     @Autowired
     private MemberServiceImpl memberService;
     /**
-     * 新增供应商
+     * 新增会员
      * @return
      */
     @PostMapping
