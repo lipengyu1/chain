@@ -20,4 +20,6 @@ public interface ShopDao {
     ShopDto selectShopById(Long id);
 
     List<ShopDto> selectShopBySupplierId(Long id);
+
+    Shop  selectShopNameByShopId(Long shopId);
 }

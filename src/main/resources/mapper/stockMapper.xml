@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.StockDao">
+    <update id="removeStock" parameterType="com.zxn.chain.entity.Stock">
+        update stock
+        set status = 0
+        where id = #{id}
+    </update>
+    <select id="queryStockPage" resultType="com.zxn.chain.dto.StockDto">
+        select id,shop_id,shop_category,shop_supplier,shop_base,start_num,sale_num,safety_stock,remarks
+        from stock
+        <where>
+            status = 1
+            <if test="shopSupplier != null and shopSupplier!= ''" >
+                and shop_supplier = #{shopSupplier}
+            </if>
+            <if test="shopCategory != null and shopCategory!= ''" >
+                and shop_category = #{shopCategory}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="queryStockCount"  resultType="java.lang.Integer">
+        select count(*)
+        from stock
+        <where>
+            status = 1
+            <if test="shopSupplier != null and shopSupplier!= ''" >
+                and shop_supplier = #{shopSupplier}
+            </if>
+            <if test="shopCategory != null and shopCategory!= ''" >
+                and shop_category = #{shopCategory}
+            </if>
+        </where>
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+
+    <select id="selectStockById" resultType="com.zxn.chain.dto.StockDto">
+        select id,shop_id,shop_category,shop_supplier,shop_base,start_num,sale_num,safety_stock,remarks
+        from stock
+        where id = #{id} and status = 1;
+    </select>
+    <insert id="saveStock" parameterType="com.zxn.chain.dto.StockDto">
+        insert into stock(id,shop_id,shop_category,shop_supplier,shop_base,start_num,sale_num,safety_stock,remarks)
+        values (#{id},#{shopId},#{shopCategory},#{shopSupplier},#{shopBase},#{startNum},#{saleNum},#{safetyStock},#{remarks})
+    </insert>
+    <update id="updateStock" parameterType="com.zxn.chain.dto.StockDto">
+        update stock
+        set shop_id = #{shopId},
+            shop_category = #{shopCategory},
+            shop_supplier = #{shopSupplier},
+            shop_base = #{shopBase},
+            start_num = #{startNum},
+            sale_num = #{saleNum},
+            safety_stock = #{safetyStock},
+            remarks = #{remarks}
+        where id = #{id}
+    </update>
+
+</mapper>
+

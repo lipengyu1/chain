@@ -61,4 +61,8 @@
         from shop
         where shop_supplier_id = #{id} and status = 1;
     </select>
+    <select id="selectShopNameByShopId" resultType="com.zxn.chain.entity.Shop">
+        select shop_name,shop_base,quantity from shop
+        where shop_num = #{shopId} and status = 1;
+    </select>
 </mapper>

@@ -1,9 +1,11 @@
-package com.zxn.chain.entity;
+package com.zxn.chain.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Stock {
+public class StockDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     /**
@@ -38,8 +40,4 @@ public class Stock {
      * 备注
      */
     private String remarks;
-    /**
-     * 状态
-     */
-    private Integer status;
 }
