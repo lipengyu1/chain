@@ -32,7 +32,6 @@
                 and shop_category = #{shopCategory}
             </if>
         </where>
-        order by id  limit ${pageNo}, ${pageSize};
     </select>
 
     <select id="selectStockById" resultType="com.zxn.chain.dto.StockDto">

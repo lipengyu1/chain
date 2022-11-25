@@ -1,12 +1,13 @@
-package com.zxn.chain.entity;
+package com.zxn.chain.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class Order {
+public class OrdersDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     /**
@@ -33,4 +34,5 @@ public class Order {
      * 备注
      */
     private String remarks;
+
 }

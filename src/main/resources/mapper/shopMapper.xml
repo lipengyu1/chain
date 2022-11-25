@@ -36,7 +36,6 @@
                 and category = #{category}
             </if>
         </where>
-        order by id  limit ${pageNo}, ${pageSize};
     </select>
     <update id="updateShop" parameterType="com.zxn.chain.dto.ShopDto">
         update shop
