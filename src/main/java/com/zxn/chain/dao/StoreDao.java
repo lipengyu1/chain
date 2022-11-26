@@ -1,6 +1,7 @@
 package com.zxn.chain.dao;
 
 import com.zxn.chain.dto.StoreDto;
+import com.zxn.chain.entity.Store;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface StoreDao {
     void updateStore(StoreDto storeDto);
 
     StoreDto selectStoreById(Long id);
+
+    Store selectStoreByNum(Integer storeNum);
 }

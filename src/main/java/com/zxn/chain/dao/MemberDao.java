@@ -1,6 +1,7 @@
 package com.zxn.chain.dao;
 
 import com.zxn.chain.dto.MemberDto;
+import com.zxn.chain.entity.Member;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface MemberDao {
     void updateMember(MemberDto memberDto);
 
     MemberDto selectMemberById(Long id);
+
+    Member selecrMemberByNum(Long memberNum);
 }

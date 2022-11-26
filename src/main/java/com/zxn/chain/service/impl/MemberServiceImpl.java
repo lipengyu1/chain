@@ -1,8 +1,10 @@
 package com.zxn.chain.service.impl;
 
+import com.zxn.chain.common.CustomException;
 import com.zxn.chain.dao.MemberDao;
 import com.zxn.chain.dto.MemberDto;
 import com.zxn.chain.dto.SupplierDto;
+import com.zxn.chain.entity.Member;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.service.MemberService;
 import com.zxn.chain.service.SnowService;
@@ -22,6 +24,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void saveMember(MemberDto memberDto) {
         memberDto.setId(snowService.getId());
+        Member member = memberDao.selecrMemberByNum(memberDto.getMemberNum());
+        if (member != null){
+            throw new CustomException("该会员卡号已存在，请重新输入");
+        }
         memberDao.saveMember(memberDto);
     }
 

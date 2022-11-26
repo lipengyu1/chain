@@ -60,4 +60,7 @@
         select  id,store_num,store_type,store_area,default_shipper,store_leader_name,store_leader_id,store_tel,create_time,remarks from store
         where id = #{id} and status = 1;
     </select>
+    <select id="selectStoreByNum" resultType="com.zxn.chain.entity.Store">
+        select store_num from store where store_num = #{storeNum} and status = 1;
+    </select>
 </mapper>

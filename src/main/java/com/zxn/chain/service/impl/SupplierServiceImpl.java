@@ -30,6 +30,10 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public void saveSupplier(SupplierDto supplierDto) {
         supplierDto.setId(snowService.getId());
+        Long shopSupplierId = supplierDao.selectSupplierByName(supplierDto.getSupplierName());
+        if (shopSupplierId != null){
+            throw new CustomException("该供货商已存在");
+        }
         supplierDao.saveSupplier(supplierDto);
     }
 

@@ -6,6 +6,7 @@ import com.zxn.chain.dao.StoreManagerDao;
 import com.zxn.chain.dao.SupplierDao;
 import com.zxn.chain.dto.StoreDto;
 import com.zxn.chain.dto.SupplierDto;
+import com.zxn.chain.entity.Store;
 import com.zxn.chain.entity.StoreManager;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.model.Response;
@@ -42,6 +43,10 @@ public class StoreServiceImpl implements StoreService {
         Long shopSupplierId = supplierDao.selectSupplierByName(storeDto.getDefaultShipper());
         if (shopSupplierId == null){
             throw new CustomException("该供货商不存在，请重新输入");
+        }
+        Store store = storeDao.selectStoreByNum(storeDto.getStoreNum());
+        if (store != null){
+            throw new CustomException("该门店编号已存在，请重新输入");
         }
         storeDao.saveStore(storeDto);
     }

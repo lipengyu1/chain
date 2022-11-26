@@ -56,4 +56,7 @@
         select id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks
         from member where id = #{id} and status = 1;
     </select>
+    <select id="selecrMemberByNum" resultType="com.zxn.chain.entity.Member">
+        select member_num from member where member_num = #{memberNum} and status = 1;
+    </select>
 </mapper>
