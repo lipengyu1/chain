@@ -135,7 +135,7 @@ public class BackController {
             if (user1.getStatus() == 0) {
                 return Response.error("账号已禁用");
             }
-            httpServletRequest.getSession().setAttribute("user", user1.getUsername());
+            httpServletRequest.getSession().setAttribute("user", user1.getId());
             return Response.success(user1);
         }else {
             return Response.error("该角色不存在");
