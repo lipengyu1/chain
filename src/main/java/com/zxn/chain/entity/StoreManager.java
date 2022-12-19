@@ -54,4 +54,8 @@ public class StoreManager {
      * 备注
      */
     private String remarks;
+    /**
+     * token
+     */
+    private String token;
 }

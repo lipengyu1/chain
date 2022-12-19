@@ -48,4 +48,8 @@ public class StoreManagerDto implements Serializable {
      * 备注
      */
     private String remarks;
+    /**
+     * token
+     */
+    private String token;
 }

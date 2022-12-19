@@ -7,6 +7,7 @@ import com.zxn.chain.model.Response;
 import com.zxn.chain.service.impl.EmployeeServiceImpl;
 import com.zxn.chain.service.impl.StoreManagerServiceImpl;
 import com.zxn.chain.service.impl.UserServiceImpl;
+import com.zxn.chain.utils.JwtUtils;
 import com.zxn.chain.utils.ValidateCodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -117,7 +119,15 @@ public class BackController {
             if (storeMan.getStatus() == 0) {
                 return Response.error("账号已禁用");
             }
-            httpServletRequest.getSession().setAttribute("storeManager", storeMan.getStoreEmployeeName());
+
+            //准备存放在IWT中的自定义数据
+            Map<String, Object> info = new HashMap<>();
+            info.put("username", storeMan.getUsername());
+            info.put("pass", storeMan.getPassword());
+            //生成token
+            String token = JwtUtils.sign(storeMan.getId(), info);
+            storeMan.setToken(token);
+
             return Response.success(storeMan);
         }else if (role.equals("管理员")){
             User user = new User();
@@ -135,7 +145,15 @@ public class BackController {
             if (user1.getStatus() == 0) {
                 return Response.error("账号已禁用");
             }
-            httpServletRequest.getSession().setAttribute("user", user1.getId());
+
+            //准备存放在IWT中的自定义数据
+            Map<String, Object> info = new HashMap<>();
+            info.put("username", user1.getUsername());
+            info.put("pass", user1.getPassword());
+            //生成token
+            String token = JwtUtils.sign(user1.getId(), info);
+            user1.setToken(token);
+
             return Response.success(user1);
         }else {
             return Response.error("该角色不存在");

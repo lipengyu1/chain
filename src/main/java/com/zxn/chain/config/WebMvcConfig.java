@@ -2,11 +2,13 @@ package com.zxn.chain.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import com.zxn.chain.common.JacksonObjectMapper;
+import com.zxn.chain.filter.JwtInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -69,5 +71,22 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
                 .version("1.0")
                 .description("系统接口文档")
                 .build();
+    }
+
+    /**
+     * 添加jwt拦截器，并指定拦截路径
+     * */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(jwtInterceptor())
+                .addPathPatterns("/supplier");
+    }
+
+    /**
+     * jwt拦截器
+     * */
+    @Bean
+    public JwtInterceptor jwtInterceptor() {
+        return new JwtInterceptor();
     }
 }
