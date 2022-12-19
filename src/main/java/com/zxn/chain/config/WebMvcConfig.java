@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -78,8 +79,22 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
      * */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor())
-                .addPathPatterns("/supplier");
+        InterceptorRegistration registration = registry.addInterceptor(jwtInterceptor());
+        //所有路径都被拦截
+        registration.addPathPatterns("/**");
+        //添加不拦截路径
+        registration.excludePathPatterns(
+                "/user/login",
+                "/user/register",
+                "/user/sendMsg",
+                "/user/find",
+                "/user/logout",
+                "/employee/login",
+                "/employee/register",
+                "/employee/sendMsg",
+                "/employee/find",
+                "/employee/logout"
+        );
     }
 
     /**
