@@ -7,7 +7,7 @@
         where id = #{id}
     </update>
     <select id="queryOrderPage" resultType="com.zxn.chain.dto.OrdersDto">
-        select id,order_num,product_name,product_money,order_time,order_status,remarks
+        select id,order_num,shop_num,member_id,product_name,product_money,order_time,order_status,remarks
         from orders
         <where>
             status = 1

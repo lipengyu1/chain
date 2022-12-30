@@ -34,6 +34,14 @@ public class Orders {
      */
     private String remarks;
     /**
+     * 商品编号
+     */
+    private Long shopNum;
+    /**
+     * 顾客id
+     */
+    private Long member_id;
+    /**
      * 1正常0删除
      */
     private Integer status;
