@@ -11,10 +11,13 @@
         where id = #{id}
     </update>
     <select id="queryShopPage" resultType="com.zxn.chain.dto.ShopDto">
-        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks
+        select shop.id,shop_name,shop_num,supplier_name as shop_supplier,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,shop.remarks
         from shop
+        left join
+        supplier
+        on shop.shop_supplier_id = supplier.id
         <where>
-            status = 1
+            shop.status = 1
             <if test="shopName != null and shopName!= ''" >
                 and shop_name = #{shopName}
             </if>
