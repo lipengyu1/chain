@@ -54,8 +54,6 @@ public class ShopLikeController {
         Long userId = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         String id = shopId+"::"+userId;
         boolean liked = redisTemplate.opsForHash().hasKey(RedisKeyUtils.MAP_MEMBER_LIKED,id);
-        System.out.println(liked);
-        System.out.println(redisTemplate.opsForHash().get(RedisKeyUtils.MAP_MEMBER_LIKED,id));
         if ((liked==true)&&(redisTemplate.opsForHash().get(RedisKeyUtils.MAP_MEMBER_LIKED,id).equals(1))){
             redisService.unlikeFromRedis(shopId,userId);
             redisService.decrementLikedCount(shopId);

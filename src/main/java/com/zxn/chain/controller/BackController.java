@@ -122,8 +122,6 @@ public class BackController {
 
             //准备存放在IWT中的自定义数据
             Map<String, Object> info = new HashMap<>();
-            info.put("username", storeMan.getUsername());
-            info.put("pass", storeMan.getPassword());
             //生成token
             String token = JwtUtils.sign(storeMan.getId(), info);
             storeMan.setToken(token);
@@ -148,8 +146,6 @@ public class BackController {
 
             //准备存放在IWT中的自定义数据
             Map<String, Object> info = new HashMap<>();
-            info.put("username", user1.getUsername());
-            info.put("pass", user1.getPassword());
             //生成token
             String token = JwtUtils.sign(user1.getId(), info);
             user1.setToken(token);
