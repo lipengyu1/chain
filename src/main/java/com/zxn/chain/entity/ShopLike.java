@@ -12,15 +12,15 @@ public class ShopLike {
     /**
      * 用户id
      */
-    private Long userId;
+    private Long memberId;
     /**
      * 点赞状态
      */
     private Integer state;
 
-    public ShopLike(Long shopId, Long userId, Integer state) {
+    public ShopLike(Long shopId, Long memberId, Integer state) {
         this.shopId = shopId;
-        this.userId = userId;
+        this.memberId = memberId;
         this.state = state;
     }
 }

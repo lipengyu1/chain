@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.ShopLikeDao">
+    <insert id="saveShopLike" parameterType="com.zxn.chain.entity.ShopLikeDB">
+        insert into shop_like(id,shop_id,member_id,state,update_time)
+        values (#{id},#{shopId},#{memberId},#{state},#{updateTime})
+    </insert>
+
+    <insert id="saveShopLikeCount" parameterType="com.zxn.chain.entity.ShopLikeCountDB">
+        insert into shop_like_count(id,shop_id,liked_count)
+        values (#{id},#{shopId},#{likedCount})
+    </insert>
+</mapper>

@@ -24,14 +24,14 @@ public class RedisServiceImpl implements RedisService {
     RedisTemplate redisTemplate;
 
     @Override
-    public void saveLiked2Redis(Long shopId, Long userId) {
-        String key = RedisKeyUtils.getLikedKey(shopId, userId);
+    public void saveLiked2Redis(Long shopId, Long memberId) {
+        String key = RedisKeyUtils.getLikedKey(shopId, memberId);
         redisTemplate.opsForHash().put(RedisKeyUtils.MAP_MEMBER_LIKED,
                 key, LikedStatusEnum.LIKE.getCode());
     }
     @Override
-    public void unlikeFromRedis(Long shopId, Long userId) {
-        String key = RedisKeyUtils.getLikedKey(shopId, userId);
+    public void unlikeFromRedis(Long shopId, Long memberId) {
+        String key = RedisKeyUtils.getLikedKey(shopId, memberId);
         redisTemplate.opsForHash().put(RedisKeyUtils.MAP_MEMBER_LIKED,
                 key, LikedStatusEnum.UNLIKE.getCode());
     }
@@ -57,14 +57,14 @@ public class RedisServiceImpl implements RedisService {
             String[] split = key.split("::");
             String shop = split[0];
             Long shopId = Long.valueOf(shop);
-            String user = split[1];
-            Long userId = Long.valueOf(user);
+            String member = split[1];
+            Long memberId = Long.valueOf(member);
             Integer state = (Integer) entry.getValue();
-            //组装成 UserLike 对象
-            ShopLike newsLike = new ShopLike(shopId, userId, state);
-            list.add(newsLike);
+            //组装成 ShopLike 对象
+            ShopLike shopLike = new ShopLike(shopId, memberId, state);
+            list.add(shopLike);
             //存到 list 后从 Redis 中删除
-            redisTemplate.opsForHash().delete(RedisKeyUtils.MAP_MEMBER_LIKED, key);
+//            redisTemplate.opsForHash().delete(RedisKeyUtils.MAP_MEMBER_LIKED, key);
         }        return list;
     }
 //    获取商品点赞量
@@ -78,7 +78,7 @@ public class RedisServiceImpl implements RedisService {
             ShopLikeCount dto = new ShopLikeCount((Long) map.getKey(),(Integer)map.getValue());
             list.add(dto);
             //从Redis中删除这条记录
-            redisTemplate.opsForHash().delete(RedisKeyUtils.MAP_SHOP_LIKED_COUNT, (Long) map.getKey());
+//            redisTemplate.opsForHash().delete(RedisKeyUtils.MAP_SHOP_LIKED_COUNT, (Long) map.getKey());
         }
         return list;
     }

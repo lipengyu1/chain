@@ -1,6 +1,8 @@
 package com.zxn.chain.controller;
 
 import com.zxn.chain.model.Response;
+import com.zxn.chain.service.LikedService;
+import com.zxn.chain.service.impl.LikedServiceImpl;
 import com.zxn.chain.service.impl.RedisServiceImpl;
 import com.zxn.chain.utils.JwtUtils;
 import com.zxn.chain.utils.RedisKeyUtils;
@@ -12,17 +14,18 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/shoplike")
 @Api(tags = "商品点赞接口")
-public class NewsLikeController {
+public class ShopLikeController {
     @Autowired
     RedisTemplate redisTemplate;
     @Autowired
     RedisServiceImpl redisService;
+    @Autowired
+    LikedServiceImpl likedService;
     /**
      * 点赞
      * @return
@@ -61,23 +64,17 @@ public class NewsLikeController {
         return Response.success("取消失败");
     }
 
-    /**
-     * 获取所有文章点赞数据
-     * @return
-     */
-    @GetMapping("getlike")
-    public Response<List> getAllNewsLike(){
-        List num = redisService.getLikedDataFromRedis();
-        return Response.success(num);
-    }
 
-    /**
-     * 获取所有文章点赞数量
-     * @return
-     */
-    @GetMapping("getlikenum")
-    public Response<List> getAllNewsLikeNum(){
-        List num = redisService.getLikedCountFromRedis();
-        return Response.success(num);
-    }
+//    //手动同步接口
+//    @GetMapping("/get1")
+//    public Response<String> get1(){
+//        likedService.transLikedFromRedis2DB();
+//        return Response.success("ok");
+//    }
+//
+//    @GetMapping("/get2")
+//    public Response<String> get2(){
+//        likedService.transLikedCountFromRedis2DB();
+//        return Response.success("ok");
+//    }
 }

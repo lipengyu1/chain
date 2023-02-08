@@ -10,11 +10,11 @@ public interface RedisService {
     /**
      * 点赞。状态为1
      */
-    void saveLiked2Redis(Long shopId, Long userId);
+    void saveLiked2Redis(Long shopId, Long memberId);
     /**
      * 取消点赞。将状态改变为0
      */
-    void unlikeFromRedis(Long shopId, Long userId);
+    void unlikeFromRedis(Long shopId, Long memberId);
     /**
      * 该文章的点赞数加1
      */

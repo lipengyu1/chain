@@ -20,7 +20,7 @@ class ChainApplicationTests {
         info.put("username", "admin");
         info.put("pass", "123456");
         //生成token
-        String id = "186018293096776702";
+        String id = "187813355694720001";
         Long userId = Long.valueOf(id);
         String token = JwtUtils.sign(userId, info);
         System.out.println(token);;
