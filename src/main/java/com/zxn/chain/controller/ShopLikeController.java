@@ -61,18 +61,4 @@ public class ShopLikeController {
         }
         return Response.success("取消失败");
     }
-
-
-//    //手动同步接口
-//    @GetMapping("/get1")
-//    public Response<String> get1(){
-//        likedService.transLikedFromRedis2DB();
-//        return Response.success("ok");
-//    }
-//
-//    @GetMapping("/get2")
-//    public Response<String> get2(){
-//        likedService.transLikedCountFromRedis2DB();
-//        return Response.success("ok");
-//    }
 }

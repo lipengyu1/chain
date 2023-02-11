@@ -6,8 +6,12 @@
         values (#{id},#{shopId},#{memberId},#{state},#{updateTime})
     </insert>
 
+    <delete id="delShopLikeCount">
+        delete from shop_like_count;
+    </delete>
+
     <insert id="saveShopLikeCount" parameterType="com.zxn.chain.entity.ShopLikeCountDB">
-        insert into shop_like_count(id,shop_id,liked_count)
-        values (#{id},#{shopId},#{likedCount})
+        insert into shop_like_count(shop_id,liked_count)(
+            select shop_id,count(1) liked_count from shop_like where state = 1 group by shop_id order by liked_count desc);
     </insert>
 </mapper>

@@ -45,14 +45,8 @@ public class LikedServiceImpl implements LikedService {
     @Override
     @Transactional
     public void transLikedCountFromRedis2DB() {
-        List<ShopLikeCount> list = redisService.getLikedCountFromRedis();
-        for (ShopLikeCount dto : list) {
-            ShopLikeCountDB shopLikeCountDB = new ShopLikeCountDB();
-            shopLikeCountDB.setId(snowService.getId());
-            shopLikeCountDB.setShopId(dto.getShopId());
-            shopLikeCountDB.setLikedCount(dto.getShopLikeCount());
-            shopLikeDao.saveShopLikeCount(shopLikeCountDB);
-        }
+        shopLikeDao.delShopLikeCount();
+        shopLikeDao.saveShopLikeCount();
     }
 }
 

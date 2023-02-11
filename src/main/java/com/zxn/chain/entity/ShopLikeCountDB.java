@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class ShopLikeCountDB {
-    private Long id;
     /**
      * 商品id
      */
