@@ -1,10 +1,13 @@
 package com.zxn.chain.controller;
 
 import com.zxn.chain.dto.EmployeeDto;
+import com.zxn.chain.dto.PermissionsDto;
+import com.zxn.chain.entity.Permissions;
 import com.zxn.chain.entity.StoreManager;
 import com.zxn.chain.entity.User;
 import com.zxn.chain.model.Response;
 import com.zxn.chain.service.impl.EmployeeServiceImpl;
+import com.zxn.chain.service.impl.PermissionsServiceImpl;
 import com.zxn.chain.service.impl.StoreManagerServiceImpl;
 import com.zxn.chain.service.impl.UserServiceImpl;
 import com.zxn.chain.utils.JwtUtils;
@@ -19,6 +22,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +41,8 @@ public class BackController {
     private StoreManagerServiceImpl storeManagerService;
     @Autowired
     private EmployeeServiceImpl employeeService;
-
+    @Autowired
+    private PermissionsServiceImpl permissionsService;
     /**
      * 通用注册
      * @return
@@ -119,6 +124,8 @@ public class BackController {
             if (storeMan.getStatus() == 0) {
                 return Response.error("账号已禁用");
             }
+            ArrayList<PermissionsDto> userPerList = permissionsService.queryPermiss(role);
+            storeMan.setPermissionName(userPerList);
 
             //准备存放在IWT中的自定义数据
             Map<String, Object> info = new HashMap<>();
@@ -144,6 +151,9 @@ public class BackController {
                 return Response.error("账号已禁用");
             }
 
+            ArrayList<PermissionsDto> manPerList = permissionsService.queryPermiss(role);
+            user1.setPermissionName(manPerList);
+            
             //准备存放在IWT中的自定义数据
             Map<String, Object> info = new HashMap<>();
             //生成token

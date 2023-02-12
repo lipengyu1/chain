@@ -2,6 +2,8 @@ package com.zxn.chain.entity;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Data
 public class StoreManager {
     private static final long serialVersionUID = 1L;
@@ -58,4 +60,8 @@ public class StoreManager {
      * token
      */
     private String token;
+    /**
+     * 权限
+     */
+    private ArrayList permissionName;
 }

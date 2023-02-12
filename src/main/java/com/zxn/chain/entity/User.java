@@ -2,6 +2,8 @@ package com.zxn.chain.entity;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Data
 public class User {
     private static final long serialVersionUID = 1L;
@@ -54,4 +56,8 @@ public class User {
      * token
      */
     private String token;
+    /**
+     * 权限
+     */
+    private ArrayList permissionName;
 }
