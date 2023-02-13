@@ -10,10 +10,6 @@ public class Permissions {
      */
     private String name;
     /**
-     * 图片名
-     */
-    private String icon;
-    /**
      * 角色
      */
     private String role;

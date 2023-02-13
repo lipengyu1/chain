@@ -9,8 +9,4 @@ public class PermissionsDto {
      * 权限名
      */
     private String name;
-    /**
-     * 图片名
-     */
-    private String icon;
 }

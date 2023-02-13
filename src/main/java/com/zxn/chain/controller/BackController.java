@@ -1,6 +1,7 @@
 package com.zxn.chain.controller;
 
 import com.zxn.chain.dto.EmployeeDto;
+import com.zxn.chain.dto.PermissionCategoryDto;
 import com.zxn.chain.dto.PermissionsDto;
 import com.zxn.chain.entity.Permissions;
 import com.zxn.chain.entity.StoreManager;
@@ -124,9 +125,14 @@ public class BackController {
             if (storeMan.getStatus() == 0) {
                 return Response.error("账号已禁用");
             }
-            ArrayList<PermissionsDto> userPerList = permissionsService.queryPermiss(role);
+            //权限大类查询
+            ArrayList<PermissionCategoryDto> userPerList = permissionsService.queryPermiss(role);
+            //遍历，嵌套添加权限小类
+            for (PermissionCategoryDto permissionCategoryDto : userPerList) {
+                Long id = permissionCategoryDto.getId();
+                permissionCategoryDto.setChildren(permissionsService.queryChild(role,id));
+            }
             storeMan.setPermissionName(userPerList);
-
             //准备存放在IWT中的自定义数据
             Map<String, Object> info = new HashMap<>();
             //生成token
@@ -150,10 +156,12 @@ public class BackController {
             if (user1.getStatus() == 0) {
                 return Response.error("账号已禁用");
             }
-
-            ArrayList<PermissionsDto> manPerList = permissionsService.queryPermiss(role);
+            ArrayList<PermissionCategoryDto> manPerList = permissionsService.queryPermiss(role);
+            for (PermissionCategoryDto permissionCategoryDto : manPerList) {
+                Long id = permissionCategoryDto.getId();
+                permissionCategoryDto.setChildren(permissionsService.queryChild(role,id));
+            }
             user1.setPermissionName(manPerList);
-            
             //准备存放在IWT中的自定义数据
             Map<String, Object> info = new HashMap<>();
             //生成token

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zxn.chain.dao.PermissionsDao">
-    <select id="queryPermiss" resultType="com.zxn.chain.dto.PermissionsDto">
-        select id,name,icon from permissions where role = #{role}
+    <select id="queryPermiss" resultType="com.zxn.chain.dto.PermissionCategoryDto">
+        select id,big_name,icon from permiss_category where role = #{role}
+    </select>
+    <select id="queryChild" resultType="com.zxn.chain.dto.PermissionsDto">
+        select permissions.id,permissions.name
+        from permissions ,permiss_category
+        where permissions.role = #{role}
+          and permissions.category_id = permiss_category.id
+          and permiss_category.id = #{id};
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.zxn.chain.service.impl;
 
 import com.zxn.chain.dao.PermissionsDao;
+import com.zxn.chain.dto.PermissionCategoryDto;
 import com.zxn.chain.dto.PermissionsDto;
 import com.zxn.chain.entity.Permissions;
 import com.zxn.chain.service.PermissionsService;
@@ -15,8 +16,14 @@ public class PermissionsServiceImpl implements PermissionsService {
     PermissionsDao permissionsDao;
 
     @Override
-    public ArrayList<PermissionsDto> queryPermiss(String role) {
-        ArrayList<PermissionsDto> arrayList =  permissionsDao.queryPermiss(role);
+    public ArrayList<PermissionCategoryDto> queryPermiss(String role) {
+        ArrayList<PermissionCategoryDto> arrayList =  permissionsDao.queryPermiss(role);
+        return arrayList;
+    }
+
+    @Override
+    public ArrayList<PermissionsDto> queryChild(String role,Long id) {
+        ArrayList<PermissionsDto> arrayList =  permissionsDao.queryChild(role,id);
         return arrayList;
     }
 }
