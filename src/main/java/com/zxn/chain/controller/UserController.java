@@ -48,7 +48,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation(value = "管理员查询接口(id)")
+    @ApiOperation(value = "管理员查询接口(id)(后台)")
     public Response<UserDto> getById(@PathVariable Long id){
         log.info("根据id查询员工信息...");
         UserDto user = userService.selectUserById(id);
@@ -67,7 +67,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询管理员接口")
+    @ApiOperation(value = "分页查询管理员接口(后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -85,7 +85,7 @@ public class UserController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "管理员信息修改接口")
+    @ApiOperation(value = "管理员信息修改接口(后台)")
     public Response<String> update(@RequestBody User user){
         log.info(user.toString());
         userService.updateUser(user);
@@ -99,7 +99,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/del")
-    @ApiOperation(value = "管理员删除接口")
+    @ApiOperation(value = "管理员删除接口(后台)")
     public Response<String> delete(@RequestParam Long[] ids){
         log.info("ids:{}",ids);
         userService.removeUser(ids);

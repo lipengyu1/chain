@@ -1,7 +1,6 @@
 package com.zxn.chain.controller;
 
 
-import com.zxn.chain.dto.ShopDto;
 import com.zxn.chain.dto.StockDto;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.model.Response;
@@ -27,7 +26,7 @@ public class StockController {
      * @return
      */
     @PostMapping
-    @ApiOperation(value = "新增库存接口")
+    @ApiOperation(value = "新增库存接口(后台)")
     public Response<String> save(@RequestBody StockDto stockDto){
         log.info(stockDto.toString());
         stockService.saveStock(stockDto);
@@ -40,7 +39,7 @@ public class StockController {
      * @return
      */
     @PutMapping("/del")
-    @ApiOperation(value = "删除库存接口")
+    @ApiOperation(value = "删除库存接口(后台)")
     public Response<String> delete(@RequestParam Long[] ids){
         log.info("ids:{}",ids);
         stockService.removeStock(ids);
@@ -56,7 +55,7 @@ public class StockController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询库存接口")
+    @ApiOperation(value = "分页查询库存接口(后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -75,7 +74,7 @@ public class StockController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改库存接口")
+    @ApiOperation(value = "修改库存接口(后台)")
     public Response<String> update(@RequestBody StockDto stockDto){
         log.info(stockDto.toString());
         stockService.updateStock(stockDto);
@@ -88,7 +87,7 @@ public class StockController {
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询库存接口(id)")
+    @ApiOperation(value = "查询库存接口(id)(后台)")
     public Response<StockDto> getById(@PathVariable Long id){
         log.info("根据id查询库存...");
         StockDto stockDto = stockService.selectStockById(id);

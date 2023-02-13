@@ -24,7 +24,7 @@ public class MemberController {
      * @return
      */
     @PostMapping
-    @ApiOperation(value = "新增会员接口")
+    @ApiOperation(value = "新增会员接口(前后台)")
     public Response<String> save(@RequestBody MemberDto memberDto){
         log.info(memberDto.toString());
         memberService.saveMember(memberDto);
@@ -36,7 +36,7 @@ public class MemberController {
      * @return
      */
     @PutMapping("/del")
-    @ApiOperation(value = "删除会员接口")
+    @ApiOperation(value = "删除会员接口(后台)")
     public Response<String> delete(@RequestParam Long[] ids){
         log.info("ids:{}",ids);
         memberService.removeMember(ids);
@@ -53,7 +53,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询会员接口")
+    @ApiOperation(value = "分页查询会员接口(后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -73,7 +73,7 @@ public class MemberController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改会员接口")
+    @ApiOperation(value = "修改会员接口(后台)")
     public Response<String> update(@RequestBody MemberDto memberDto){
         log.info(memberDto.toString());
         memberService.updateMember(memberDto);
@@ -86,7 +86,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询会员接口(id)")
+    @ApiOperation(value = "查询会员接口(id)(前后台)")
     public Response<MemberDto> getById(@PathVariable Long id){
         log.info("根据id查询供应商...");
         MemberDto memberDto = memberService.selectMemberById(id);

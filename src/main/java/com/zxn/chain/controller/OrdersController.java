@@ -28,7 +28,7 @@ public class OrdersController {
      * @return
      */
     @PutMapping("/del")
-    @ApiOperation(value = "删除订单接口")
+    @ApiOperation(value = "删除订单接口(前后台)")
     public Response<String> delete(@RequestParam Long[] ids){
         log.info("ids:{}",ids);
         orderService.removeOrder(ids);
@@ -44,7 +44,7 @@ public class OrdersController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询订单接口")
+    @ApiOperation(value = "分页查询订单接口(后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -63,7 +63,7 @@ public class OrdersController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改订单状态接口")
+    @ApiOperation(value = "修改订单状态接口(后台)")
     public Response<String> update(@RequestBody OrdersDto orderDto){
         log.info(orderDto.toString());
         orderService.updateOrder(orderDto);

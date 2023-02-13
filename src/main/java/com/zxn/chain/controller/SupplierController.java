@@ -26,7 +26,7 @@ public class SupplierController {
      * @return
      */
     @PostMapping
-    @ApiOperation(value = "新增供应商接口")
+    @ApiOperation(value = "新增供应商接口(后台)")
     public Response<String> save(@RequestBody SupplierDto supplierDto){
         log.info(supplierDto.toString());
         supplierService.saveSupplier(supplierDto);
@@ -38,7 +38,7 @@ public class SupplierController {
      * @return
      */
     @PutMapping("/del")
-    @ApiOperation(value = "删除供应商接口")
+    @ApiOperation(value = "删除供应商接口(后台)")
     public Response<String> delete(@RequestParam Long[] ids){
         log.info("ids:{}",ids);
         supplierService.removeSupplier(ids);
@@ -54,7 +54,7 @@ public class SupplierController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询供应商接口")
+    @ApiOperation(value = "分页查询供应商接口(后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -73,7 +73,7 @@ public class SupplierController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改供应商接口")
+    @ApiOperation(value = "修改供应商接口(后台)")
     public Response<String> update(@RequestBody SupplierDto supplierDto){
         log.info(supplierDto.toString());
         supplierService.updateSupplier(supplierDto);
@@ -86,7 +86,7 @@ public class SupplierController {
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询供应商接口(id)")
+    @ApiOperation(value = "查询供应商接口(id)(后台)")
     public Response<SupplierDto> getById(@PathVariable Long id){
         log.info("根据id查询供应商...");
         SupplierDto supplierDto = supplierService.selectSupplierById(id);

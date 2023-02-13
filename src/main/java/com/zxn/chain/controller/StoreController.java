@@ -26,7 +26,7 @@ public class StoreController {
      * @return
      */
     @PostMapping
-    @ApiOperation(value = "新增供应商接口")
+    @ApiOperation(value = "新增供应商接口(后台)")
     public Response<String> save(@RequestBody StoreDto storeDto){
         log.info(storeDto.toString());
         storeService.saveStore(storeDto);
@@ -39,7 +39,7 @@ public class StoreController {
      * @return
      */
     @PutMapping("/del")
-    @ApiOperation(value = "删除门店接口")
+    @ApiOperation(value = "删除门店接口(后台)")
     public Response<String> delete(@RequestParam Long[] ids){
         log.info("ids:{}",ids);
         storeService.removeStore(ids);
@@ -56,7 +56,7 @@ public class StoreController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询门店接口")
+    @ApiOperation(value = "分页查询门店接口(后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -76,7 +76,7 @@ public class StoreController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改门店接口")
+    @ApiOperation(value = "修改门店接口(后台)")
     public Response<String> update(@RequestBody StoreDto storeDto){
         log.info(storeDto.toString());
         storeService.updateStore(storeDto);
@@ -89,7 +89,7 @@ public class StoreController {
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询门店接口(id)")
+    @ApiOperation(value = "查询门店接口(id)(后台)")
     public Response<StoreDto> getById(@PathVariable Long id){
         log.info("根据id查询门店...");
         StoreDto storeDto = storeService.selectStoreById(id);

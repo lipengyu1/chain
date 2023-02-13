@@ -26,7 +26,7 @@ public class ShopCartController {
      * @return
      */
     @PostMapping("/add")
-    @ApiOperation(value = "购物车添加接口")
+    @ApiOperation(value = "购物车添加接口(前台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "shopCart",value = "信息，通过id判断。id为null,购物中新建商品；id不为null,该商品存在，则加1",required = true),
     })
@@ -48,7 +48,7 @@ public class ShopCartController {
      * @return
      */
     @PostMapping("/del")
-    @ApiOperation(value = "购物车删除接口")
+    @ApiOperation(value = "购物车删除接口(前台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "shopCart",value = "信息，通过id判断。id不为null,该商品存在，减1",required = true),
     })
@@ -70,7 +70,7 @@ public class ShopCartController {
      * @return
      */
     @PostMapping("/delall")
-    @ApiOperation(value = "购物车清空接口")
+    @ApiOperation(value = "购物车清空接口(前台)")
     public Response<String> delall(@RequestParam Long memberId){
         log.info(memberId.toString());
         shopCartService.delall(memberId);
@@ -83,7 +83,7 @@ public class ShopCartController {
      * @return
      */
     @GetMapping("/queryshopcart")
-    @ApiOperation(value = "购物车查询接口")
+    @ApiOperation(value = "购物车查询接口(前台)")
     public Response<ArrayList<ShopCart>> queryShopCart(@RequestParam Long memberId){
         log.info(memberId.toString());
         ArrayList<ShopCart> arrayList = shopCartService.queryShopCart(memberId);

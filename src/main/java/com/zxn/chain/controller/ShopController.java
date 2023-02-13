@@ -25,7 +25,7 @@ public class ShopController {
      * @return
      */
     @PostMapping
-    @ApiOperation(value = "新增商品接口")
+    @ApiOperation(value = "新增商品接口(后台)")
     public Response<String> save(@RequestBody ShopDto shopDto){
         log.info(shopDto.toString());
         shopService.saveShop(shopDto);
@@ -37,7 +37,7 @@ public class ShopController {
      * @return
      */
     @PutMapping("/del")
-    @ApiOperation(value = "删除商品接口")
+    @ApiOperation(value = "删除商品接口(后台)")
     public Response<String> delete(@RequestParam Long[] ids){
         log.info("ids:{}",ids);
         shopService.removeShop(ids);
@@ -53,7 +53,7 @@ public class ShopController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询商品接口")
+    @ApiOperation(value = "分页查询商品接口(后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -72,7 +72,7 @@ public class ShopController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改商品接口")
+    @ApiOperation(value = "修改商品接口(后台)")
     public Response<String> update(@RequestBody ShopDto shopDto){
         log.info(shopDto.toString());
         shopService.updateShop(shopDto);
@@ -85,7 +85,7 @@ public class ShopController {
      * @return
      */
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询商品接口(id)")
+    @ApiOperation(value = "查询商品接口(id)(后台)")
     public Response<ShopDto> getById(@PathVariable Long id){
         log.info("根据id查询商品...");
         ShopDto shopDto = shopService.selectShopById(id);
