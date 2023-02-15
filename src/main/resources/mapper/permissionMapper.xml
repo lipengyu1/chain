@@ -5,7 +5,7 @@
         select id,big_name,icon from permiss_category where role = #{role}
     </select>
     <select id="queryChild" resultType="com.zxn.chain.dto.PermissionsDto">
-        select permissions.id,permissions.name
+        select permissions.id,permissions.name,path
         from permissions ,permiss_category
         where permissions.role = #{role}
           and permissions.category_id = permiss_category.id

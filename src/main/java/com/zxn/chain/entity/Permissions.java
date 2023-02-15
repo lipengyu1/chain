@@ -13,4 +13,8 @@ public class Permissions {
      * 角色
      */
     private String role;
+    /**
+     * 路径
+     */
+    private String path;
 }

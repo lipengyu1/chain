@@ -9,4 +9,8 @@ public class PermissionsDto {
      * 权限名
      */
     private String name;
+    /**
+     * 路径
+     */
+    private String path;
 }
