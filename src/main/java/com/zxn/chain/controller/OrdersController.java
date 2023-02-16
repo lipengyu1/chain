@@ -63,10 +63,14 @@ public class OrdersController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改订单状态接口(后台)")
+    @ApiOperation(value = "修改订单状态接口(后台)orderDto必须包含id与orderStatus('待付款','已付款','取消付款'等)")
     public Response<String> update(@RequestBody OrdersDto orderDto){
         log.info(orderDto.toString());
         orderService.updateOrder(orderDto);
+        if (orderDto.getOrderStatus().equals("取消付款")){
+            //取消付款,商品数量返回原来数值
+            orderService.rollBackShopNum(orderDto.getId());
+        }
         return Response.success("订单状态修改成功");
     }
 }

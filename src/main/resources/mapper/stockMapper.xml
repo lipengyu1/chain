@@ -55,6 +55,15 @@
             remarks = #{remarks}
         where id = #{id}
     </update>
-
+    <update id="addSalNum" parameterType="com.zxn.chain.entity.Stock">
+        update stock
+        set sale_num = sale_num+#{shopQuantity}
+        where shop_id = #{shopNum}
+    </update>
+    <update id="delSalNum" parameterType="com.zxn.chain.entity.Stock">
+        update stock
+        set sale_num = sale_num-#{shopQuantity}
+        where shop_id = #{shopNum}
+    </update>
 </mapper>
 

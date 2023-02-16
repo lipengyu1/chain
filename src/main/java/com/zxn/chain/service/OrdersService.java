@@ -9,4 +9,6 @@ public interface OrdersService {
     BasePageResponse<OrdersDto> queryOrderPage(int pageNo, int pageSize, String orderNum, String orderStatus);
 
     void updateOrder(OrdersDto orderDto);
+
+    void rollBackShopNum(Long id);
 }

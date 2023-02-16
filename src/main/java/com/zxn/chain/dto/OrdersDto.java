@@ -11,10 +11,6 @@ public class OrdersDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     /**
-     * 订单编号
-     */
-    private Long orderNum;
-    /**
      * 产品名称
      */
     private String productName;
@@ -37,10 +33,18 @@ public class OrdersDto implements Serializable {
     /**
      * 顾客id
      */
-    private Long member_id;
+    private Long memberId;
     /**
      * 备注
      */
     private String remarks;
+    /**
+     * 数量
+     */
+    private Integer shopQuantity;
+    /**
+     * 电话
+     */
+    private String memberTel;
 
 }

@@ -1,6 +1,8 @@
 package com.zxn.chain.service.impl;
 
 import com.zxn.chain.dao.OrdersDao;
+import com.zxn.chain.dao.ShopDao;
+import com.zxn.chain.dao.StockDao;
 import com.zxn.chain.dto.OrdersDto;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.service.OrdersService;
@@ -14,6 +16,10 @@ import java.util.List;
 public class OrdersServiceImpl implements OrdersService {
     @Autowired
     OrdersDao orderDao;
+    @Autowired
+    ShopDao shopDao;
+    @Autowired
+    StockDao stockDao;
     @Override
     public void removeOrder(Long[] ids) {
         for (int i = 0; i <ids.length; i++) {
@@ -39,6 +45,16 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void updateOrder(OrdersDto orderDto) {
+        orderDao.updateOrder(orderDto.getId(),orderDto.getOrderStatus());
+    }
 
+    @Override
+    public void rollBackShopNum(Long id) {
+        //获取订单中的shop_num与shop_quantity
+        OrdersDto ordersDto = orderDao.queryOrderDetail(id);
+        Long shopNum = ordersDto.getShopNum();
+        Integer shopQuantity =  ordersDto.getShopQuantity();
+        stockDao.delSalNum(shopNum,shopQuantity);
+        shopDao.addSalNum(shopNum,shopQuantity);
     }
 }

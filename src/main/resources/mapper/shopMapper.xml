@@ -67,4 +67,20 @@
         select shop_name,shop_base,quantity from shop
         where shop_num = #{shopId} and status = 1;
     </select>
+    <select id="querySellPrice" resultType="decimal">
+        select sell_price from shop where shop_num = #{shopNum};
+    </select>
+    <update id="delSalNum" parameterType="com.zxn.chain.entity.Stock">
+        update shop
+        set quantity = quantity-#{shopQuantity}
+        where shop_num = #{shopNum};
+    </update>
+    <select id="getRemainder" resultType="java.lang.Integer">
+        select quantity from shop where shop_num = #{shopNum};
+    </select>
+    <update id="addSalNum" parameterType="com.zxn.chain.entity.Stock">
+        update shop
+        set quantity = quantity+#{shopQuantity}
+        where shop_num = #{shopNum};
+    </update>
 </mapper>

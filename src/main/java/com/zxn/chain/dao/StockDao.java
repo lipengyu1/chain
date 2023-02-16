@@ -16,4 +16,8 @@ public interface StockDao {
     void saveStock(StockDto stockDto);
 
     void updateStock(StockDto stockDto);
+
+    void addSalNum(Long shopNum, Integer shopQuantity);
+
+    void delSalNum(Long shopNum, Integer shopQuantity);
 }

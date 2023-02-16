@@ -2,6 +2,7 @@ package com.zxn.chain.service.impl;
 
 import com.zxn.chain.common.CustomException;
 import com.zxn.chain.dao.ShopDao;
+import com.zxn.chain.dao.ShopLikeDao;
 import com.zxn.chain.dao.SupplierDao;
 import com.zxn.chain.dto.ShopDto;
 import com.zxn.chain.dto.SupplierDto;
@@ -11,6 +12,7 @@ import com.zxn.chain.service.SnowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class ShopServiceImpl implements ShopService {
     SupplierDao supplierDao;
     @Autowired
     ShopDao shopDao;
+    @Autowired
+    ShopLikeDao shopLikeDao;
     SnowService snowService = new SnowService(1, 1);
 
     @Override
@@ -45,6 +49,10 @@ public class ShopServiceImpl implements ShopService {
     public BasePageResponse<ShopDto> queryShopPage(int pageNo, int pageSize, String shopName, String category) {
         int pageNo1 = pageSize * (pageNo - 1);
         List<ShopDto> queryList = shopDao.queryShopPage(pageNo1,pageSize,shopName,category);
+        for (ShopDto shopDto : queryList) {
+            Integer num = shopLikeDao.selectShopCountLike(shopDto.getId());
+            shopDto.setLikeCount(num);
+        }
         ArrayList<ShopDto> arrayList = new ArrayList<>(queryList);
         int totalCount = shopDao.queryShopCount(pageNo1,pageSize,shopName,category);
         BasePageResponse<ShopDto> basePageResponse = new BasePageResponse<>();
@@ -69,8 +77,21 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public ShopDto selectShopById(Long id) {
         ShopDto shopDto = shopDao.selectShopById(id);
-        SupplierDto supplierDto = supplierDao.selectSupplierById(shopDto.getShopSupplierId());
+        SupplierDto supplierDto = null;
+        try {
+            supplierDto = supplierDao.selectSupplierById(shopDto.getShopSupplierId());
+        } catch (Exception e) {
+            throw new CustomException("未查询到商品");
+        }
         shopDto.setShopSupplier(supplierDto.getSupplierName());
+        Integer num = shopLikeDao.selectShopCountLike(shopDto.getId());
+        shopDto.setLikeCount(num);
         return shopDto;
+    }
+
+    @Override
+    public BigDecimal querySellPrice(Long shopNum) {
+        BigDecimal sellPrice = shopDao.querySellPrice(shopNum);
+        return sellPrice;
     }
 }

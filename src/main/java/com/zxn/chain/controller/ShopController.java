@@ -53,7 +53,7 @@ public class ShopController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询商品接口(后台)")
+    @ApiOperation(value = "分页查询商品接口(前后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
@@ -89,9 +89,6 @@ public class ShopController {
     public Response<ShopDto> getById(@PathVariable Long id){
         log.info("根据id查询商品...");
         ShopDto shopDto = shopService.selectShopById(id);
-        if (shopDto != null){
-            return Response.success(shopDto);
-        }
-        return Response.error("未查询到商品");
+         return Response.success(shopDto);
     }
 }

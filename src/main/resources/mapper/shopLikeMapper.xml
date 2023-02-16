@@ -14,4 +14,7 @@
         insert into shop_like_count(shop_id,liked_count)(
             select shop_id,count(1) liked_count from shop_like where state = 1 group by shop_id order by liked_count desc);
     </insert>
+    <select id="selectShopCountLike" resultType="java.lang.Integer">
+        select liked_count from shop_like_count where shop_id = #{id};
+    </select>
 </mapper>

@@ -26,7 +26,7 @@ public class StoreController {
      * @return
      */
     @PostMapping
-    @ApiOperation(value = "新增供应商接口(后台)")
+    @ApiOperation(value = "新增门点接口(后台)")
     public Response<String> save(@RequestBody StoreDto storeDto){
         log.info(storeDto.toString());
         storeService.saveStore(storeDto);

@@ -33,4 +33,16 @@
             </if>
         </where>
     </select>
+    <insert id="addOrders" parameterType="com.zxn.chain.dto.OrdersDto">
+        insert into orders (id,member_id,shop_num,product_name,shop_quantity,product_money,order_status,order_time,member_tel,remarks)
+        values (#{id},#{memberId},#{shopNum}, #{productName}, #{shopQuantity},#{productMoney},#{orderStatus},#{orderTime},#{memberTel},#{remarks});
+    </insert>
+    <update id="updateOrder" parameterType="com.zxn.chain.dto.OrdersDto">
+        update orders
+        set order_status = #{orderStatus}
+        where id = #{id}
+    </update>
+    <select id="queryOrderDetail" resultType="com.zxn.chain.dto.OrdersDto">
+        select * from orders where id = #{id};
+    </select>
 </mapper>

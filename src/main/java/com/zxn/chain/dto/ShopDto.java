@@ -49,4 +49,8 @@ public class ShopDto implements Serializable {
      * 备注
      */
     private String remarks;
+    /**
+     * 点赞量
+     */
+    private Integer likeCount;
 }

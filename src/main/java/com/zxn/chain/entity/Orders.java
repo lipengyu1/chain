@@ -8,11 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class Orders {
     private static final long serialVersionUID = 1L;
-    private Long id;
-    /**
-     * 订单编号
-     */
-    private Long orderNum;
+    private Long id;//订单编号
     /**
      * 产品名称
      */
@@ -40,9 +36,17 @@ public class Orders {
     /**
      * 顾客id
      */
-    private Long member_id;
+    private Long memberId;
     /**
      * 1正常0删除
      */
     private Integer status;
+    /**
+     * 数量
+     */
+    private Integer shopQuantity;
+    /**
+     * 电话
+     */
+    private String memberTel;
 }

@@ -7,15 +7,16 @@
     </insert>
     <select id="queryShopById" resultType="com.zxn.chain.entity.ShopCart">
         select * from shop_cart
-        where id = #{id};
+        where member_id = #{memberId} and shop_num = #{shopNum};
     </select>
     <update id="updateShopCartById" parameterType="com.zxn.chain.entity.ShopCart">
         update shop_cart
-        set shop_quantity=#{i}
-        where id = #{id};
+        set shop_quantity=#{i},
+            money = #{i}*#{sellPrice}
+        where member_id = #{memberId} and shop_num = #{shopNum};
     </update>
     <delete id="delShopCartById" parameterType="com.zxn.chain.entity.ShopCart">
-        delete from shop_cart where id = #{id};
+        delete from shop_cart where member_id = #{memberId} and shop_num = #{shopNum};
     </delete>
     <delete id="delall" parameterType="com.zxn.chain.entity.ShopCart">
         delete from shop_cart where member_id = #{memberId};

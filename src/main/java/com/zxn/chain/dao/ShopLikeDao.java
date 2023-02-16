@@ -9,4 +9,6 @@ public interface ShopLikeDao {
     void saveShopLikeCount();
 
     void delShopLikeCount();
+
+    Integer selectShopCountLike(Long id);
 }
