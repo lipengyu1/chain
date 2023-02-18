@@ -83,4 +83,9 @@
         set quantity = quantity+#{shopQuantity}
         where shop_num = #{shopNum};
     </update>
+    <select id="selectShopByNum" resultType="com.zxn.chain.dto.ShopDto">
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks
+        from shop
+        where shop_num = #{shopNum} and status = 1;
+    </select>
 </mapper>

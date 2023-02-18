@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxn.chain.dao.MemberCollectionDao">
+    <insert id="addCollection" parameterType="com.zxn.chain.entity.MemberCollection">
+        insert into member_collection(id,shop_num,member_num,create_time)
+        values (#{id},#{shopNum},#{memberNum},#{createTime});
+    </insert>
+    <update id="delCollection" parameterType="com.zxn.chain.entity.MemberCollection">
+        update member_collection
+        set status = 0
+        where id = #{id};
+    </update>
+    <select id="queryCollectionPage" resultType="com.zxn.chain.entity.MemberCollection">
+        select id,shop_num,member_num,create_time
+        from member_collection
+        where status = 1 and member_num = #{memberNum}
+        order by id  limit ${pageNo}, ${pageSize};
+    </select>
+    <select id="queryCollectionPageCount" resultType="java.lang.Integer">
+        select count(*)
+        from member_collection
+        where status = 1 and member_num = #{memberNum}
+    </select>
+</mapper>

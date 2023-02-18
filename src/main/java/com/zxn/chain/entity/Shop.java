@@ -33,7 +33,7 @@ public class Shop {
      */
     private BigDecimal sellPrice;
     /**
-     * 数量
+     * 剩余数量
      */
     private Integer quantity;
     /**

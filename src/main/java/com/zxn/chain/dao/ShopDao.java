@@ -31,4 +31,6 @@ public interface ShopDao {
     void addSalNum(Long shopNum, Integer shopQuantity);
 
     Integer getRemainder(Long shopNum);
+
+    ShopDto selectShopByNum(Long shopNum);
 }
