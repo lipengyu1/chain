@@ -4,7 +4,9 @@ package com.zxn.chain.service;
 import com.zxn.chain.entity.ShopLike;
 import com.zxn.chain.entity.ShopLikeCount;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface RedisService {
     /**
@@ -28,5 +30,17 @@ public interface RedisService {
      * @return
      */
     List<ShopLike> getLikedDataFromRedis();
+    /**
+     * 保存用户浏览记录
+     */
+    void saveHistory(Long memberNum, LocalDateTime date, Long id);
+    /**
+     *删除用户历史记录
+     */
+    void delHistory(Long memberNum, Long id);
 
+    /**
+     *查询用户历史记录
+     */
+    Map queryHistory(Long memberNum);
 }

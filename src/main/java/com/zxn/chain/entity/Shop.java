@@ -29,7 +29,7 @@ public class Shop {
      */
     private BigDecimal restockingPrice;
     /**
-     * 进售价
+     * 售价
      */
     private BigDecimal sellPrice;
     /**

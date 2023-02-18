@@ -4,7 +4,9 @@ import com.zxn.chain.dto.ShopDto;
 import com.zxn.chain.dto.SupplierDto;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.model.Response;
+import com.zxn.chain.service.impl.HistoryServiceImpl;
 import com.zxn.chain.service.impl.ShopServiceImpl;
+import com.zxn.chain.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @RestController
 @RequestMapping("/shop")
@@ -20,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 public class ShopController {
     @Autowired
     private ShopServiceImpl shopService;
+    @Autowired
+    private HistoryServiceImpl historyService;
     /**
      * 新增商品
      * @return
@@ -80,7 +86,7 @@ public class ShopController {
     }
 
     /**
-     * id查询商品（回显）
+     * id查询商品1（回显）
      * @param id
      * @return
      */
@@ -90,5 +96,21 @@ public class ShopController {
         log.info("根据id查询商品...");
         ShopDto shopDto = shopService.selectShopById(id);
          return Response.success(shopDto);
+    }
+    /**
+     * id查询商品2
+     * @param shopId
+     * @param memberNum
+     * @return
+     */
+    @GetMapping("/a")
+    @ApiOperation(value = "查询商品接口(id)查询商品详细内容并保存浏览记录(前台)(可用于首页查看商品、历史记录中查看商品)")
+    public Response<ShopDto> getShop(@RequestParam Long shopId,Long memberNum){
+        log.info("根据id查询商品...");
+        ShopDto shopDto = shopService.selectShopById(shopId);
+        LocalDateTime date = LocalDateTime.now();
+        //调用保存历史记录接口，将历史记录保存到redis
+        historyService.saveHistory(memberNum,date,shopId);
+        return Response.success(shopDto);
     }
 }

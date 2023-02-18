@@ -13,6 +13,8 @@ import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,27 @@ public class RedisServiceImpl implements RedisService {
             redisTemplate.opsForHash().delete(RedisKeyUtils.MAP_MEMBER_LIKED, key);
         }
         return list;
+    }
+
+    @Override
+    public void saveHistory(Long memberNum, LocalDateTime date, Long id) {
+        String key = memberNum+"history";//userId-用户Num(key),id-商品id，非商品num(hashkey)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String datetime = date.format(formatter);//datetime-阅读时间(value)
+        redisTemplate.opsForHash().put(key,id,datetime);
+    }
+
+    @Override
+    public void delHistory(Long memberNum, Long id) {
+        String key = memberNum+"history";
+        redisTemplate.opsForHash().delete(key,id);
+    }
+
+    @Override
+    public Map queryHistory(Long memberNum) {
+        String key = memberNum+"history";
+        Map map = redisTemplate.opsForHash().entries(key);
+        return map;
     }
 }
 

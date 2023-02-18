@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class ShopDto implements Serializable {
+public class ShopUserHistoryDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     /**
@@ -30,10 +30,6 @@ public class ShopDto implements Serializable {
      */
     private String shopBase;
     /**
-     * 进货价
-     */
-    private BigDecimal restockingPrice;
-    /**
      * 售价
      */
     private BigDecimal sellPrice;
@@ -46,11 +42,11 @@ public class ShopDto implements Serializable {
      */
     private String category;
     /**
-     * 备注
-     */
-    private String remarks;
-    /**
      * 点赞量
      */
     private Integer likeCount;
+    /**
+     * 查看时间
+     */
+    private String readTime;
 }
