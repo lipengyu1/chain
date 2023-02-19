@@ -1,10 +1,12 @@
 package com.zxn.chain.controller;
 
 import com.zxn.chain.dto.ShopDto;
+import com.zxn.chain.dto.ShopKeyQueryDto;
 import com.zxn.chain.dto.SupplierDto;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.model.Response;
 import com.zxn.chain.service.impl.HistoryServiceImpl;
+import com.zxn.chain.service.impl.RedisServiceImpl;
 import com.zxn.chain.service.impl.ShopServiceImpl;
 import com.zxn.chain.utils.JwtUtils;
 import io.swagger.annotations.Api;
@@ -15,13 +17,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/shop")
 @Api(tags = "商品等相关接口")
 public class ShopController {
+    @Autowired
+    private RedisServiceImpl redisService;
     @Autowired
     private ShopServiceImpl shopService;
     @Autowired
@@ -112,5 +119,30 @@ public class ShopController {
         //调用保存历史记录接口，将历史记录保存到redis
         historyService.saveHistory(memberNum,date,shopId);
         return Response.success(shopDto);
+    }
+
+    /**
+     * 搜索框查询文章
+     * 用户输入记录保存到redis
+     * @return
+     */
+    @GetMapping("/querynews")
+    @ApiOperation(value = "搜索框查询文章(前台)")
+    public Response<ArrayList> queryNews(@RequestParam String keyWords,Long memberNum){
+        ArrayList<ShopKeyQueryDto> list = shopService.queryShop(keyWords);
+        //用户搜索记录保存
+        redisService.saveUserQuery(keyWords,memberNum);
+        return Response.success(list);
+    }
+
+    /**
+     * 查询用户搜索历史关键字
+     * @return
+     */
+    @GetMapping("/hiskeywds")
+    @ApiOperation(value = "查询用户搜索历史关键字(前台)")
+    public Response<List> queryHisKeyWds(@RequestParam Long memberNum){
+        List list = redisService.getUserQuery(memberNum);
+        return Response.success(list);
     }
 }

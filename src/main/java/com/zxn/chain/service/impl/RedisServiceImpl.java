@@ -91,5 +91,22 @@ public class RedisServiceImpl implements RedisService {
         Map map = redisTemplate.opsForHash().entries(key);
         return map;
     }
+
+    @Override
+    public void saveUserQuery(String KeyWords, Long memberNum) {
+        String key = memberNum+"keywords";
+        redisTemplate.opsForList().leftPush(key, KeyWords);
+        Long size = redisTemplate.opsForList().size(memberNum);
+        if (size > 100) {
+            redisTemplate.opsForList().rightPop(memberNum);
+        }
+    }
+
+    @Override
+    public List getUserQuery(Long memberNum) {
+        String key = memberNum+"keywords";
+        List list = redisTemplate.opsForList().range(key,0,-1);
+        return list ;
+    }
 }
 

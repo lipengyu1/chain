@@ -1,6 +1,7 @@
 package com.zxn.chain.dao;
 
 import com.zxn.chain.dto.ShopDto;
+import com.zxn.chain.dto.ShopKeyQueryDto;
 import com.zxn.chain.entity.Shop;
 
 import java.math.BigDecimal;
@@ -33,4 +34,6 @@ public interface ShopDao {
     Integer getRemainder(Long shopNum);
 
     ShopDto selectShopByNum(Long shopNum);
+
+    ArrayList<ShopKeyQueryDto> queryShop(String keyWords);
 }

@@ -5,6 +5,7 @@ import com.zxn.chain.dao.ShopDao;
 import com.zxn.chain.dao.ShopLikeDao;
 import com.zxn.chain.dao.SupplierDao;
 import com.zxn.chain.dto.ShopDto;
+import com.zxn.chain.dto.ShopKeyQueryDto;
 import com.zxn.chain.dto.SupplierDto;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.service.ShopService;
@@ -93,5 +94,15 @@ public class ShopServiceImpl implements ShopService {
     public BigDecimal querySellPrice(Long shopNum) {
         BigDecimal sellPrice = shopDao.querySellPrice(shopNum);
         return sellPrice;
+    }
+
+    @Override
+    public ArrayList<ShopKeyQueryDto> queryShop(String keyWords) {
+        ArrayList<ShopKeyQueryDto> arrayList = shopDao.queryShop(keyWords);
+        for (ShopKeyQueryDto shopKeyQueryDto : arrayList) {
+            Integer num = shopLikeDao.selectShopCountLike(shopKeyQueryDto.getId());
+            shopKeyQueryDto.setLikeCount(num);
+        }
+        return arrayList;
     }
 }

@@ -38,9 +38,16 @@ public interface RedisService {
      *删除用户历史记录
      */
     void delHistory(Long memberNum, Long id);
-
     /**
      *查询用户历史记录
      */
     Map queryHistory(Long memberNum);
+    /**
+     * 用户搜索记录保存至redis
+     */
+    void saveUserQuery(String KeyWords,Long memberNum);
+    /**
+     * 查询用户输入记录
+     */
+    List getUserQuery(Long memberNum);
 }
