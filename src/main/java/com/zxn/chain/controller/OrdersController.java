@@ -44,17 +44,30 @@ public class OrdersController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询订单接口(后台)")
+    @ApiOperation(value = "分页查询订单接口(前后台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
-            @ApiImplicitParam(name = "orderNum",value = "订单编号",required = false),
-            @ApiImplicitParam(name = "orderStatus",value = "订单状态",required = false)
+            @ApiImplicitParam(name = "orderStatus",value = "订单状态",required = false),
+            @ApiImplicitParam(name = "memberNum",value = "会员编号，前台使用",required = false)
     })
-    public Response<BasePageResponse<OrdersDto>> page(int pageNo, int pageSize, String orderNum, String orderStatus){
-        log.info("pageNo={},pageSize={},orderNum={},orderStatus={}",pageNo,pageSize,orderNum,orderStatus);
-        BasePageResponse<OrdersDto> response = orderService.queryOrderPage(pageNo,pageSize,orderNum,orderStatus);
+    public Response<BasePageResponse<OrdersDto>> page(int pageNo, int pageSize, String orderNum, String orderStatus,Long memberNum){
+        log.info("pageNo={},pageSize={},orderNum={},orderStatus={},memberNum={}",pageNo,pageSize,orderNum,orderStatus,memberNum);
+        BasePageResponse<OrdersDto> response = orderService.queryOrderPage(pageNo,pageSize,orderNum,orderStatus,memberNum);
         return Response.success(response);
+    }
+
+    /**
+     * 选择订单地址
+     * @param orderId
+     * @param addressId
+     * @return
+     */
+    @PutMapping("/addaddress")
+    @ApiOperation(value = "选择订单地址")
+    public Response<String> update(@RequestParam Long orderId,Long addressId){
+        orderService.addOrderAddress(orderId,addressId);
+        return Response.success("地址选择成功");
     }
 
     /**
@@ -63,7 +76,7 @@ public class OrdersController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改订单状态接口(后台)orderDto必须包含id与orderStatus('待付款','已付款','取消付款'等)")
+    @ApiOperation(value = "修改订单状态接口(前后台)orderDto必须包含id与orderStatus('待付款','已付款','取消付款'等)")
     public Response<String> update(@RequestBody OrdersDto orderDto){
         log.info(orderDto.toString());
         orderService.updateOrder(orderDto);

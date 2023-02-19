@@ -28,6 +28,6 @@
         where id = #{id}
     </update>
     <select id="selectAddressById" resultType="com.zxn.chain.entity.Address">
-        select id,id,member_num,address,name,phone from address where id = #{id} and status = 1;
+        select id,member_num,address,name,phone from address where id = #{id} and status = 1;
     </select>
 </mapper>

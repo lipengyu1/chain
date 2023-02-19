@@ -46,5 +46,12 @@ public class OrdersDto implements Serializable {
      * 电话
      */
     private String memberTel;
-
+    /**
+     * 地址id
+     */
+    private Long addressId;
+    /**
+     * 地址
+     */
+    private String address;
 }

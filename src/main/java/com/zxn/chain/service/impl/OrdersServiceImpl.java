@@ -1,9 +1,12 @@
 package com.zxn.chain.service.impl;
 
+import com.zxn.chain.dao.AddressDao;
 import com.zxn.chain.dao.OrdersDao;
 import com.zxn.chain.dao.ShopDao;
 import com.zxn.chain.dao.StockDao;
 import com.zxn.chain.dto.OrdersDto;
+import com.zxn.chain.dto.ShopDto;
+import com.zxn.chain.entity.Address;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,8 @@ import java.util.List;
 
 @Service
 public class OrdersServiceImpl implements OrdersService {
+    @Autowired
+    AddressDao addressDao;
     @Autowired
     OrdersDao orderDao;
     @Autowired
@@ -29,11 +34,16 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public BasePageResponse<OrdersDto> queryOrderPage(int pageNo, int pageSize, String orderNum, String orderStatus) {
+    public BasePageResponse<OrdersDto> queryOrderPage(int pageNo, int pageSize, String orderNum, String orderStatus,Long memberNum) {
         int pageNo1 = pageSize * (pageNo - 1);
-        List<OrdersDto> queryList = orderDao.queryOrderPage(pageNo1,pageSize,orderNum,orderStatus);
+        List<OrdersDto> queryList = orderDao.queryOrderPage(pageNo1,pageSize,orderNum,orderStatus,memberNum);
+        //获取地址详细信息
+        for (OrdersDto ordersDto : queryList) {
+            Address address = addressDao.selectAddressById(ordersDto.getAddressId());
+            ordersDto.setAddress(address.getAddress());
+        }
         ArrayList<OrdersDto> arrayList = new ArrayList<>(queryList);
-        int totalCount = orderDao.queryOrderCount(pageNo1,pageSize,orderNum,orderStatus);
+        int totalCount = orderDao.queryOrderCount(pageNo1,pageSize,orderNum,orderStatus,memberNum);
         BasePageResponse<OrdersDto> basePageResponse = new BasePageResponse<>();
         basePageResponse.setPageNo(pageNo);
         basePageResponse.setPageSize(pageSize);
@@ -56,5 +66,10 @@ public class OrdersServiceImpl implements OrdersService {
         Integer shopQuantity =  ordersDto.getShopQuantity();
         stockDao.delSalNum(shopNum,shopQuantity);
         shopDao.addSalNum(shopNum,shopQuantity);
+    }
+
+    @Override
+    public void addOrderAddress(Long orderId, Long addressId) {
+        orderDao.addOrderAddress(orderId,addressId);
     }
 }

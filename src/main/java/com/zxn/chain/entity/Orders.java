@@ -49,4 +49,8 @@ public class Orders {
      * 电话
      */
     private String memberTel;
+    /**
+     * 地址id
+     */
+    private Long addressId;
 }
