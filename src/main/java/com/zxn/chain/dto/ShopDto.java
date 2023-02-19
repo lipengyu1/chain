@@ -18,6 +18,10 @@ public class ShopDto implements Serializable {
      */
     private Long shopNum;
     /**
+     * 图片
+     */
+    private String picture;
+    /**
      * 供应商
      */
     private String shopSupplier;
@@ -53,4 +57,5 @@ public class ShopDto implements Serializable {
      * 点赞量
      */
     private Integer likeCount;
+
 }

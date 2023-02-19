@@ -18,6 +18,10 @@ public class ShopUserHistoryDto implements Serializable {
      */
     private Long shopNum;
     /**
+     * 图片
+     */
+    private String picture;
+    /**
      * 供应商
      */
     private String shopSupplier;

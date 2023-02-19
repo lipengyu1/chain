@@ -18,6 +18,10 @@ public class MemberCollectionDto implements Serializable {
      */
     private Long shopNum;
     /**
+     * 图片
+     */
+    private String picture;
+    /**
      * 售价
      */
     private BigDecimal sellPrice;

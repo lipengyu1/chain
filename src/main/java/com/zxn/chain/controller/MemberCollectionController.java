@@ -51,6 +51,7 @@ public class MemberCollectionController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
             @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
+            @ApiImplicitParam(name = "memberNum",value = "会员号",required = true),
     })
     public Response<BasePageResponse<MemberCollectionDto>> page(int pageNo, int pageSize,Long memberNum){
         log.info("pageNo={},pageSize={},memberNum={}",pageNo,pageSize);

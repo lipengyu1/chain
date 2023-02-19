@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zxn.chain.dao.ShopDao">
     <insert id="saveShop" parameterType="com.zxn.chain.dto.ShopDto">
-        insert into shop(id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks)
-        values (#{id},#{shopName},#{shopNum},#{shopSupplierId},#{shopBase},#{restockingPrice},#{sellPrice},#{quantity},#{category},#{remarks})
+        insert into shop(id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture)
+        values (#{id},#{shopName},#{shopNum},#{shopSupplierId},#{shopBase},#{restockingPrice},#{sellPrice},#{quantity},#{category},#{remarks},#{picture})
     </insert>
     <update id="removeShop" parameterType="com.zxn.chain.entity.Shop">
         update shop
@@ -11,7 +11,7 @@
         where id = #{id}
     </update>
     <select id="queryShopPage" resultType="com.zxn.chain.dto.ShopDto">
-        select shop.id,shop_name,shop_num,supplier_name as shop_supplier,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,shop.remarks
+        select shop.id,shop_name,shop_num,supplier_name as shop_supplier,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,shop.remarks,picture
         from shop
         left join
         supplier
@@ -48,13 +48,14 @@
             shop_base = #{shopBase},
             restocking_price = #{restockingPrice},
             sell_price = #{sellPrice},
+            picture = #{picture},
             quantity = #{quantity},
             category = #{category},
             remarks = #{remarks}
         where id = #{id}
     </update>
     <select id="selectShopById" resultType="com.zxn.chain.dto.ShopDto">
-        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture
         from shop
         where id = #{id} and status = 1;
     </select>
@@ -84,7 +85,7 @@
         where shop_num = #{shopNum};
     </update>
     <select id="selectShopByNum" resultType="com.zxn.chain.dto.ShopDto">
-        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture
         from shop
         where shop_num = #{shopNum} and status = 1;
     </select>

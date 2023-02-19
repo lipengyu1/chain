@@ -48,6 +48,7 @@ public class HistoryServiceImpl implements HistoryService {
             shopUserHistoryDto.setId(shopDto.getId());
             shopUserHistoryDto.setShopName(shopDto.getShopName());
             shopUserHistoryDto.setShopNum(shopDto.getShopNum());
+            shopUserHistoryDto.setPicture(shopDto.getPicture());
             shopUserHistoryDto.setShopSupplier(shopDto.getShopSupplier());
             shopUserHistoryDto.setShopSupplierId(shopDto.getShopSupplierId());
             shopUserHistoryDto.setShopBase(shopDto.getShopBase());

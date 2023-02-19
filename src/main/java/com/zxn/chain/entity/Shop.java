@@ -17,6 +17,10 @@ public class Shop {
      */
     private Long shopNum;
     /**
+     * 图片
+     */
+    private String picture;
+    /**
      * 供应商id
      */
     private Long shopSupplierId;
@@ -48,6 +52,5 @@ public class Shop {
      * 备注
      */
     private String remarks;
-
 
 }
