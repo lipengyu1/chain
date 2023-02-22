@@ -1,7 +1,9 @@
 package com.zxn.chain.dao;
 
 import com.zxn.chain.dto.StockDto;
+import com.zxn.chain.dto.WarnDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface StockDao {
@@ -20,4 +22,8 @@ public interface StockDao {
     void addSalNum(Long shopNum, Integer shopQuantity);
 
     void delSalNum(Long shopNum, Integer shopQuantity);
+
+    List<String> getWarnShopName();
+
+    List<String> getShopSellNum();
 }

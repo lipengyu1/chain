@@ -5,6 +5,7 @@ import com.zxn.chain.dao.ShopDao;
 import com.zxn.chain.dao.StockDao;
 import com.zxn.chain.dao.SupplierDao;
 import com.zxn.chain.dto.StockDto;
+import com.zxn.chain.dto.WarnDto;
 import com.zxn.chain.entity.Shop;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.service.SnowService;
@@ -97,5 +98,29 @@ public class StockServiceImpl implements StockService {
     @Override
     public StockDto selectStockById(Long id) {
         return stockDao.selectStockById(id);
+    }
+
+    @Override
+    public ArrayList<WarnDto> stockWarn() {
+        List<String> shopName = stockDao.getWarnShopName();
+        ArrayList<WarnDto> arrayList = new ArrayList();
+        for (String s : shopName) {
+            WarnDto warnDto = new WarnDto();
+            warnDto.setWarn("商品:"+s+"库存不足");
+            arrayList.add(warnDto);
+        }
+        return arrayList;
+    }
+
+    @Override
+    public ArrayList<WarnDto> getShopSellNum() {
+        List<String> shopSell = stockDao.getShopSellNum();
+        ArrayList<WarnDto> arrayList = new ArrayList();
+        for (String s : shopSell) {
+            WarnDto warnDto = new WarnDto();
+            warnDto.setWarn("商品:"+s+"销售已突破100单");
+            arrayList.add(warnDto);
+        }
+        return arrayList;
     }
 }

@@ -17,8 +17,6 @@ class ChainApplicationTests {
     @Test
     void getTokenTest(){
         Map<String, Object> info = new HashMap<>();
-        info.put("username", "admin");
-        info.put("pass", "123456");
         //生成token
         String id = "187813355694720001";
         Long userId = Long.valueOf(id);

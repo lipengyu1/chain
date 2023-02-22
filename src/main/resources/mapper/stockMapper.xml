@@ -65,5 +65,15 @@
         set sale_num = sale_num-#{shopQuantity}
         where shop_id = #{shopNum}
     </update>
+    <select id="getWarnShopName" resultType="java.lang.String">
+        select b.shop_name
+        from stock a left join shop b on a.shop_id = b.shop_num
+        where (a.start_num-a.sale_num)&lt;(a.safety_stock) and  a.status = 1 and b.status = 1;
+    </select>
+    <select id="getShopSellNum" resultType="java.lang.String">
+        select b.shop_name
+        from stock a left join shop b on a.shop_id = b.shop_num
+        where a.sale_num>100 and  a.status = 1 and b.status = 1;
+    </select>
 </mapper>
 

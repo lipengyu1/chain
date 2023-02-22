@@ -204,7 +204,7 @@ public class BackController {
      * @param map
      * @return
      */
-    @PutMapping("/find")
+    @PostMapping("/find")
     @ApiOperation(value = "找回密码接口")
     public Response<String> find(@RequestBody Map map) {
         log.info("找回密码", map);
