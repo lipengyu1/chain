@@ -38,7 +38,7 @@ public class ShopController {
      * 新增商品
      * @return
      */
-    @CacheEvict(value = "shopCache",allEntries = true)
+//    @CacheEvict(value = "shopCache",allEntries = true)
     @PostMapping
     @ApiOperation(value = "新增商品接口(后台)")
     public Response<String> save(@RequestBody ShopDto shopDto){
@@ -51,7 +51,7 @@ public class ShopController {
      * @param ids
      * @return
      */
-    @CacheEvict(value = "shopCache",allEntries = true)
+//    @CacheEvict(value = "shopCache",allEntries = true)
     @PutMapping("/del")
     @ApiOperation(value = "删除商品接口(后台)")
     public Response<String> delete(@RequestParam Long[] ids){
@@ -87,7 +87,7 @@ public class ShopController {
      * @param shopDto
      * @return
      */
-    @CacheEvict(value = "shopCache",allEntries = true)
+//    @CacheEvict(value = "shopCache",allEntries = true)
     @PutMapping
     @ApiOperation(value = "修改商品接口(后台)")
     public Response<String> update(@RequestBody ShopDto shopDto){
@@ -114,7 +114,7 @@ public class ShopController {
      * @param memberNum
      * @return
      */
-    @Cacheable(value = "shopCache",key = "#shopId+'_'+#memberNum")
+//    @Cacheable(value = "shopCache",key = "#shopId+'_'+#memberNum")
     @GetMapping("/a")
     @ApiOperation(value = "查询商品接口(id)查询商品详细内容并保存浏览记录(前台)(可用于首页查看商品、历史记录中查看商品)")
     public Response<ShopDto> getShop(@RequestParam Long shopId,Long memberNum){

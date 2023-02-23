@@ -28,7 +28,7 @@ public class MemberCollectionController {
      * 添加收藏
      * @return
      */
-    @CacheEvict(value = "shopCollectionCache",allEntries = true)
+//    @CacheEvict(value = "shopCollectionCache",allEntries = true)
     @PostMapping("/add")
     @ApiOperation(value = "用户添加收藏接口(前台)")
     public Response<String> add(@RequestBody MemberCollection memberCollection){
@@ -41,7 +41,7 @@ public class MemberCollectionController {
      * @param ids
      * @return
      */
-    @CacheEvict(value = "shopCollectionCache",allEntries = true)
+//    @CacheEvict(value = "shopCollectionCache",allEntries = true)
     @PostMapping("/del")
     @ApiOperation(value = "用户删除收藏接口(前台)")
     public Response<String> del(@RequestParam Long[] ids){
@@ -55,7 +55,7 @@ public class MemberCollectionController {
      * @param pageSize
      * @return
      */
-    @Cacheable(value = "shopCollectionCache",key = "#memberNum+'_'+'collection'")
+//    @Cacheable(value = "shopCollectionCache",key = "#memberNum+'_'+'collection'")
     @GetMapping("/page")
     @ApiOperation(value = "分页查询收藏接口(前台)")
     @ApiImplicitParams({
