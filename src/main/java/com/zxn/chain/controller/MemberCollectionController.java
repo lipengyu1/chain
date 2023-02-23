@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -26,6 +28,7 @@ public class MemberCollectionController {
      * 添加收藏
      * @return
      */
+    @CacheEvict(value = "shopCollectionCache",allEntries = true)
     @PostMapping("/add")
     @ApiOperation(value = "用户添加收藏接口(前台)")
     public Response<String> add(@RequestBody MemberCollection memberCollection){
@@ -33,6 +36,12 @@ public class MemberCollectionController {
         return Response.success("收藏成功");
     }
 
+    /**
+     * 删除收藏
+     * @param ids
+     * @return
+     */
+    @CacheEvict(value = "shopCollectionCache",allEntries = true)
     @PostMapping("/del")
     @ApiOperation(value = "用户删除收藏接口(前台)")
     public Response<String> del(@RequestParam Long[] ids){
@@ -46,6 +55,7 @@ public class MemberCollectionController {
      * @param pageSize
      * @return
      */
+    @Cacheable(value = "shopCollectionCache",key = "#memberNum+'_'+'collection'")
     @GetMapping("/page")
     @ApiOperation(value = "分页查询收藏接口(前台)")
     @ApiImplicitParams({
