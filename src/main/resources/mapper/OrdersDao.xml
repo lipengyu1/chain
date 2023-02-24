@@ -48,6 +48,11 @@
     <update id="addOrderAddress" parameterType="com.zxn.chain.dto.OrdersDto">
         update orders
         set address_id = #{addressId}
-        where id = #{orderId}
+        where id = #{orderId};
     </update>
+    <select id="selectOrderById" resultType="com.zxn.chain.dto.OrdersDto">
+        select *
+        from orders
+        where id = #{id};
+    </select>
 </mapper>

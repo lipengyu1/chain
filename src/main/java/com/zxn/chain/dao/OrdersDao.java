@@ -7,9 +7,9 @@ import java.util.List;
 public interface OrdersDao {
     void removeOrder(Long id);
 
-    List<OrdersDto> queryOrderPage(int pageNo, int pageSize, String orderNum, String orderStatus,Long memberNum);
+    List<OrdersDto> queryOrderPage(int pageNo, int pageSize,  String orderStatus,Long memberNum);
 
-    int queryOrderCount(int pageNo, int pageSize, String orderNum, String orderStatus,Long memberNum);
+    int queryOrderCount(int pageNo, int pageSize, String orderStatus,Long memberNum);
 
     void addOrders(OrdersDto orders);
 
@@ -18,4 +18,6 @@ public interface OrdersDao {
     OrdersDto queryOrderDetail(Long id);
 
     void addOrderAddress(Long orderId, Long addressId);
+
+    OrdersDto selectOrderById(Long id);
 }

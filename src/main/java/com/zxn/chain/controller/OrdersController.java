@@ -2,6 +2,7 @@ package com.zxn.chain.controller;
 
 
 import com.zxn.chain.dto.OrdersDto;
+import com.zxn.chain.dto.ShopDto;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.model.Response;
 import com.zxn.chain.service.impl.OrdersServiceImpl;
@@ -39,8 +40,8 @@ public class OrdersController {
      * 订单分页查询
      * @param pageNo
      * @param pageSize
-     * @param orderNum
      * @param orderStatus
+     * @param memberNum
      * @return
      */
     @GetMapping("/page")
@@ -51,9 +52,9 @@ public class OrdersController {
             @ApiImplicitParam(name = "orderStatus",value = "订单状态",required = false),
             @ApiImplicitParam(name = "memberNum",value = "会员编号，前台使用",required = false)
     })
-    public Response<BasePageResponse<OrdersDto>> page(int pageNo, int pageSize, String orderNum, String orderStatus,Long memberNum){
-        log.info("pageNo={},pageSize={},orderNum={},orderStatus={},memberNum={}",pageNo,pageSize,orderNum,orderStatus,memberNum);
-        BasePageResponse<OrdersDto> response = orderService.queryOrderPage(pageNo,pageSize,orderNum,orderStatus,memberNum);
+    public Response<BasePageResponse<OrdersDto>> page(int pageNo, int pageSize, String orderStatus,Long memberNum){
+        log.info("pageNo={},pageSize={},orderNum={},orderStatus={},memberNum={}",pageNo,pageSize,orderStatus,memberNum);
+        BasePageResponse<OrdersDto> response = orderService.queryOrderPage(pageNo,pageSize,orderStatus,memberNum);
         return Response.success(response);
     }
 
@@ -85,5 +86,18 @@ public class OrdersController {
             orderService.rollBackShopNum(orderDto.getId());
         }
         return Response.success("订单状态修改成功");
+    }
+
+    /**
+     * id查询订单（回显）
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation(value = "查询订单接口(id)(后台)")
+    public Response<OrdersDto> getById(@PathVariable Long id){
+        log.info("根据id查询商品...");
+        OrdersDto ordersDto = orderService.selectOrderById(id);
+        return Response.success(ordersDto);
     }
 }

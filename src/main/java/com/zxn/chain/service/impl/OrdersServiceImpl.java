@@ -34,16 +34,16 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public BasePageResponse<OrdersDto> queryOrderPage(int pageNo, int pageSize, String orderNum, String orderStatus,Long memberNum) {
+    public BasePageResponse<OrdersDto> queryOrderPage(int pageNo, int pageSize,  String orderStatus,Long memberNum) {
         int pageNo1 = pageSize * (pageNo - 1);
-        List<OrdersDto> queryList = orderDao.queryOrderPage(pageNo1,pageSize,orderNum,orderStatus,memberNum);
+        List<OrdersDto> queryList = orderDao.queryOrderPage(pageNo1,pageSize,orderStatus,memberNum);
         //获取地址详细信息
         for (OrdersDto ordersDto : queryList) {
             Address address = addressDao.selectAddressById(ordersDto.getAddressId());
             ordersDto.setAddress(address.getAddress());
         }
         ArrayList<OrdersDto> arrayList = new ArrayList<>(queryList);
-        int totalCount = orderDao.queryOrderCount(pageNo1,pageSize,orderNum,orderStatus,memberNum);
+        int totalCount = orderDao.queryOrderCount(pageNo1,pageSize,orderStatus,memberNum);
         BasePageResponse<OrdersDto> basePageResponse = new BasePageResponse<>();
         basePageResponse.setPageNo(pageNo);
         basePageResponse.setPageSize(pageSize);
@@ -71,5 +71,10 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public void addOrderAddress(Long orderId, Long addressId) {
         orderDao.addOrderAddress(orderId,addressId);
+    }
+
+    @Override
+    public OrdersDto selectOrderById(Long id) {
+        return orderDao.selectOrderById(id);
     }
 }
