@@ -75,5 +75,9 @@
         from stock a left join shop b on a.shop_id = b.shop_num
         where a.sale_num>100 and  a.status = 1 and b.status = 1;
     </select>
+    <select id="selectStockByShopId" resultType="com.zxn.chain.dto.StockDto">
+        select * from stock
+        where shop_id = #{shopId};
+    </select>
 </mapper>
 

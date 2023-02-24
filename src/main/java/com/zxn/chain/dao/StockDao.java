@@ -26,4 +26,6 @@ public interface StockDao {
     List<String> getWarnShopName();
 
     List<String> getShopSellNum();
+
+    StockDto selectStockByShopId(Long shopId);
 }

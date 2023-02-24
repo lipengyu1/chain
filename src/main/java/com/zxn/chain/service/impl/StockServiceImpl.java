@@ -7,6 +7,7 @@ import com.zxn.chain.dao.SupplierDao;
 import com.zxn.chain.dto.StockDto;
 import com.zxn.chain.dto.WarnDto;
 import com.zxn.chain.entity.Shop;
+import com.zxn.chain.entity.Stock;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.service.SnowService;
 import com.zxn.chain.service.StockService;
@@ -31,8 +32,11 @@ public class StockServiceImpl implements StockService {
     public void saveStock(StockDto stockDto) {
         stockDto.setId(snowService.getId());
         //商品编号限制
+        StockDto s = stockDao.selectStockByShopId(stockDto.getShopId());
+        if (s!=null){
+            throw new CustomException("该商品库存信息已存在");
+        }
         Shop shop = shopDao.selectShopNameByShopId(stockDto.getShopId());
-        System.out.println(shop);
         if (shop==null){
             throw new CustomException("该商品不存在，请重新输入");
         }
@@ -77,6 +81,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void updateStock(StockDto stockDto) {
+        StockDto s = stockDao.selectStockByShopId(stockDto.getShopId());
         Shop shop = shopDao.selectShopNameByShopId(stockDto.getShopId());
         System.out.println(shop);
         if (shop==null){
@@ -86,12 +91,11 @@ public class StockServiceImpl implements StockService {
         if (shopSupplierId == null){
             throw new CustomException("该供货商不存在，请重新输入");
         }
-        if (!(shop.getShopBase().equals(stockDto.getShopBase()))){
-            throw new CustomException("产地错误，请重新输入");
-        }
-        if (!(shop.getQuantity().equals(stockDto.getStartNum()))){
-            throw new CustomException("进货数量错误，请重新输入");
-        }
+//        进货数量修改
+//        shop表剩余数量 加 （新进货数量-旧进货数量）
+        Integer addShopNum = stockDto.getStartNum()-s.getStartNum();
+        shopDao.addSalNum(stockDto.getShopId(),addShopNum);
+        System.out.println(stockDto.getStartNum());
         stockDao.updateStock(stockDto);
     }
 
