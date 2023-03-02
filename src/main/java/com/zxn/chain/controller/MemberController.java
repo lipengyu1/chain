@@ -44,6 +44,11 @@ public class MemberController {
         return Response.success(memberDto);
     }
 
+    /**
+     * 会员信息完善
+     * @param memberDto
+     * @return
+     */
     @PostMapping("/add")
     @ApiOperation(value = "会员信息完善接口(前台),信息完善后需要重新登录")
     public Response<String> addMemberInfo(@RequestBody MemberDto memberDto){

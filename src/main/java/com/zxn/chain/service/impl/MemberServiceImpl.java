@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
         memberDto.setId(snowService.getId());
         Member member = memberDao.selecrMemberByNum(memberDto.getMemberNum());
         if (member != null){
-            throw new CustomException("该会员卡号已存在，请重新输入");
+            throw new CustomException("该会员号已存在，请重新输入");
         }
         memberDao.saveMember(memberDto);
     }
@@ -79,6 +79,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void addMemberInfo(MemberDto memberDto) {
+        Member member = memberDao.selecrMemberByNum(memberDto.getMemberNum());
+        if (member != null){
+            throw new CustomException("该会员号已存在，请重新输入");
+        }
         memberDao.addMemberInfo(memberDto);
     }
 }
