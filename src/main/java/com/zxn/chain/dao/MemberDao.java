@@ -19,4 +19,10 @@ public interface MemberDao {
     MemberDto selectMemberById(Long id);
 
     Member selecrMemberByNum(Long memberNum);
+
+    MemberDto queryMemberByTel(String memberTel);
+
+    void addMemberTel(Member member);
+
+    void addMemberInfo(MemberDto memberDto);
 }

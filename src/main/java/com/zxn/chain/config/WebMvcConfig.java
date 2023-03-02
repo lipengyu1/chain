@@ -84,6 +84,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registration.addPathPatterns("/**");
         //添加不拦截路径
         registration.excludePathPatterns(
+                "/member/login",
+                "/member/add",
                 "/back/login",
                 "/back/register",
                 "/back/sendMsg",

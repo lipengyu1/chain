@@ -63,4 +63,22 @@ public class MemberServiceImpl implements MemberService {
     public MemberDto selectMemberById(Long id) {
         return memberDao.selectMemberById(id);
     }
+
+    @Override
+    public MemberDto queryMemberByTel(String memberTel) {
+        return memberDao.queryMemberByTel(memberTel);
+    }
+
+    @Override
+    public void memberLogin(String memberTel) {
+        Member member = new Member();
+        member.setMemberTel(memberTel);
+        member.setId(snowService.getId());
+        memberDao.addMemberTel(member);
+    }
+
+    @Override
+    public void addMemberInfo(MemberDto memberDto) {
+        memberDao.addMemberInfo(memberDto);
+    }
 }

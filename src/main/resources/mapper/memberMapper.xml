@@ -3,7 +3,7 @@
 <mapper namespace="com.zxn.chain.dao.MemberDao">
     <insert id="saveMember" parameterType="com.zxn.chain.dto.MemberDto">
         insert into member (id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks)
-        values (#{id},#{memberNum}, #{memberName}, #{memberGrade},#{memberSex},#{memberStatus},#{memberTel},#{remarks});
+        values (#{id},#{memberNum},#{memberName},#{memberGrade},#{memberSex},#{memberStatus},#{memberTel},#{remarks});
     </insert>
     <update id="removeMember" parameterType="com.zxn.chain.dto.MemberDto">
         update member
@@ -59,4 +59,22 @@
     <select id="selecrMemberByNum" resultType="com.zxn.chain.entity.Member">
         select member_num from member where member_num = #{memberNum} and status = 1;
     </select>
+    <select id="queryMemberByTel" resultType="com.zxn.chain.dto.MemberDto">
+        select * from member where member_tel = #{memberTel} and status = 1;
+    </select>
+    <insert id="addMemberTel" parameterType="com.zxn.chain.entity.Member">
+        insert into member (id,member_tel)
+        values (#{id},#{memberTel})
+    </insert>
+    <update id="addMemberInfo" parameterType="com.zxn.chain.dto.MemberDto">
+        update member
+        set member_num = #{memberNum},
+            member_name = #{memberName},
+            member_grade = #{memberGrade},
+            member_sex = #{memberSex},
+            member_status = #{memberStatus},
+            member_tel = #{memberTel},
+            remarks = #{remarks}
+        where member_tel = #{memberTel}
+    </update>
 </mapper>

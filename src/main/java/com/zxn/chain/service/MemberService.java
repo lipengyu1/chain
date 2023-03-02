@@ -13,4 +13,10 @@ public interface MemberService {
     void updateMember(MemberDto memberDto);
 
     MemberDto selectMemberById(Long id);
+
+    MemberDto queryMemberByTel(String memberTel);
+
+    void memberLogin(String memberTel);
+
+    void addMemberInfo(MemberDto memberDto);
 }

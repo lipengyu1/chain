@@ -65,7 +65,7 @@ public class OrdersController {
      * @return
      */
     @PutMapping("/addaddress")
-    @ApiOperation(value = "选择订单地址")
+    @ApiOperation(value = "选择订单地址(前台)")
     public Response<String> update(@RequestParam Long orderId,Long addressId){
         orderService.addOrderAddress(orderId,addressId);
         return Response.success("地址选择成功");

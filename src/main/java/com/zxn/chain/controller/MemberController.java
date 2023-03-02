@@ -1,9 +1,11 @@
 package com.zxn.chain.controller;
 
+import com.zxn.chain.common.CustomException;
 import com.zxn.chain.dto.MemberDto;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.model.Response;
 import com.zxn.chain.service.impl.MemberServiceImpl;
+import com.zxn.chain.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -12,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/member")
@@ -19,12 +24,39 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     @Autowired
     private MemberServiceImpl memberService;
+
+    /**
+     * 会员登录
+     * @param memberTel
+     * @return
+     */
+    @PostMapping("/login")
+    @ApiOperation(value = "会员登录接口(前台)")
+    public Response<MemberDto> login(@RequestParam String memberTel){
+        MemberDto memberDto =  memberService.queryMemberByTel(memberTel);
+        if (memberDto == null){
+            memberService.memberLogin(memberTel);
+            throw new CustomException("信息未完善，请完善信息");
+        }
+        Map<String, Object> info = new HashMap<>();
+        String token = JwtUtils.sign(memberDto.getMemberNum(), info);
+        memberDto.setToken(token);
+        return Response.success(memberDto);
+    }
+
+    @PostMapping("/add")
+    @ApiOperation(value = "会员信息完善接口(前台),信息完善后需要重新登录")
+    public Response<String> addMemberInfo(@RequestBody MemberDto memberDto){
+        memberService.addMemberInfo(memberDto);
+        return Response.success("完善成功，请重新登录");
+    }
+
     /**
      * 新增会员
      * @return
      */
     @PostMapping
-    @ApiOperation(value = "新增会员接口(前后台)")
+    @ApiOperation(value = "新增会员接口(后台)")
     public Response<String> save(@RequestBody MemberDto memberDto){
         log.info(memberDto.toString());
         memberService.saveMember(memberDto);
