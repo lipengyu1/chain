@@ -23,5 +23,14 @@ class ChainApplicationTests {
         String token = JwtUtils.sign(userId, info);
         System.out.println(token);;
     }
+    @Test
+    void getTokenTest2(){
+        Map<String, Object> info = new HashMap<>();
+        //生成token
+        String member= "1004";
+        Long memberNum = Long.valueOf(member);
+        String token = JwtUtils.sign(memberNum, info);
+        System.out.println(token);;
+    }
 
 }

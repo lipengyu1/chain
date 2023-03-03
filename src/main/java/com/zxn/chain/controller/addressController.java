@@ -5,6 +5,7 @@ import com.zxn.chain.entity.Address;
 import com.zxn.chain.model.BasePageResponse;
 import com.zxn.chain.model.Response;
 import com.zxn.chain.service.impl.AddressServiceImpl;
+import com.zxn.chain.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
@@ -30,8 +33,10 @@ public class addressController {
 //    @CacheEvict(value = "addressCache",allEntries = true)
     @PostMapping
     @ApiOperation(value = "新增地址接口(前台)")
-    public Response<String> save(@RequestBody Address address){
+    public Response<String> save(@RequestBody Address address, HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         log.info(address.toString());
+        address.setMemberNum(memberNum);
         addressService.saveAddress(address);
         return Response.success("新增地址成功");
     }
@@ -52,7 +57,6 @@ public class addressController {
      * 地址分页查询
      * @param pageNo
      * @param pageSize
-     * @param memberNum
      * @return
      */
 //    @Cacheable(value = "addressCache",key = "#memberNum+'_'+'address'")
@@ -60,10 +64,10 @@ public class addressController {
     @ApiOperation(value = "分页查询地址接口(前台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
-            @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
-            @ApiImplicitParam(name = "memberNum",value = "会员编号",required = true),
+            @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true)
     })
-    public Response<BasePageResponse<Address>> page(int pageNo, int pageSize, Long memberNum){
+    public Response<BasePageResponse<Address>> page(int pageNo, int pageSize,HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         log.info("pageNo={},pageSize={},shopName={},category={}",pageNo,pageSize,memberNum);
         BasePageResponse<Address> response = addressService.queryAddressPage(pageNo,pageSize,memberNum);
         return Response.success(response);

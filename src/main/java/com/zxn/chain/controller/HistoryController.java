@@ -26,7 +26,8 @@ public class HistoryController {
 //    删除历史浏览记录
     @DeleteMapping("/delhistory")
     @ApiOperation(value = "用户删除历史记录(前台)")
-    public Response<String> delHistory(@RequestParam Long shopId,Long memberNum){
+    public Response<String> delHistory(@RequestParam Long shopId,HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         historyService.delHistory(memberNum,shopId);
         return Response.success("删除成功");
     }
@@ -34,8 +35,9 @@ public class HistoryController {
 //    查询历史浏览记录（根据redis中的shopId查询商品信息）
     @GetMapping("/gethistory")
     @ApiOperation(value = "用户查询历史记录(前台)")
-    public Response<ArrayList<ShopUserHistoryDto>> queryHistory(@RequestParam Long memberNum){
-    ArrayList<ShopUserHistoryDto> arrayList = historyService.queryHistory(memberNum);
-    return Response.success(arrayList);
+    public Response<ArrayList<ShopUserHistoryDto>> queryHistory(HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
+        ArrayList<ShopUserHistoryDto> arrayList = historyService.queryHistory(memberNum);
+        return Response.success(arrayList);
     }
 }

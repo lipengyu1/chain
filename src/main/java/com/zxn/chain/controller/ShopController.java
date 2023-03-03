@@ -19,6 +19,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,13 +112,13 @@ public class ShopController {
     /**
      * id查询商品2
      * @param shopId
-     * @param memberNum
      * @return
      */
 //    @Cacheable(value = "shopCache",key = "#shopId+'_'+#memberNum")
     @GetMapping("/a")
     @ApiOperation(value = "查询商品接口(id)查询商品详细内容并保存浏览记录(前台)(可用于首页查看商品、历史记录中查看商品)")
-    public Response<ShopDto> getShop(@RequestParam Long shopId,Long memberNum){
+    public Response<ShopDto> getShop(@RequestParam Long shopId, HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         log.info("根据id查询商品...");
         ShopDto shopDto = shopService.selectShopById(shopId);
         LocalDateTime date = LocalDateTime.now();
@@ -133,7 +134,8 @@ public class ShopController {
      */
     @GetMapping("/querynews")
     @ApiOperation(value = "搜索框查询文章(前台)")
-    public Response<ArrayList> queryNews(@RequestParam String keyWords,Long memberNum){
+    public Response<ArrayList> queryNews(@RequestParam String keyWords,HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         ArrayList<ShopKeyQueryDto> list = shopService.queryShop(keyWords);
         //用户搜索记录保存
         redisService.saveUserQuery(keyWords,memberNum);
@@ -144,9 +146,10 @@ public class ShopController {
      * 查询用户搜索历史关键字
      * @return
      */
-    @GetMapping("/hiskeywds")
+        @GetMapping("/hiskeywds")
     @ApiOperation(value = "查询用户搜索历史关键字(前台)")
-    public Response<List> queryHisKeyWds(@RequestParam Long memberNum){
+    public Response<List> queryHisKeyWds(HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         List list = redisService.getUserQuery(memberNum);
         return Response.success(list);
     }

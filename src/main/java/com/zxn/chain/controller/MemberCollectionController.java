@@ -16,6 +16,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Slf4j
 @RestController
@@ -31,7 +33,9 @@ public class MemberCollectionController {
 //    @CacheEvict(value = "shopCollectionCache",allEntries = true)
     @PostMapping("/add")
     @ApiOperation(value = "用户添加收藏接口(前台)")
-    public Response<String> add(@RequestBody MemberCollection memberCollection){
+    public Response<String> add(@RequestBody MemberCollection memberCollection, HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
+        memberCollection.setMemberNum(memberNum);
         memberCollectionService.addCollection(memberCollection);
         return Response.success("收藏成功");
     }
@@ -60,10 +64,10 @@ public class MemberCollectionController {
     @ApiOperation(value = "分页查询收藏接口(前台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true),
-            @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true),
-            @ApiImplicitParam(name = "memberNum",value = "会员号",required = true),
+            @ApiImplicitParam(name = "pageSize",value = "每页记录数",required = true)
     })
-    public Response<BasePageResponse<MemberCollectionDto>> page(int pageNo, int pageSize,Long memberNum){
+    public Response<BasePageResponse<MemberCollectionDto>> page(int pageNo, int pageSize,HttpServletRequest request){
+        Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         log.info("pageNo={},pageSize={},memberNum={}",pageNo,pageSize);
         BasePageResponse<MemberCollectionDto> response = memberCollectionService.queryCollectionPage(pageNo,pageSize,memberNum);
         return Response.success(response);
