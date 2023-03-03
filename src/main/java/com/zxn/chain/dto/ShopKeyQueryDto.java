@@ -35,4 +35,7 @@ public class ShopKeyQueryDto {
      * 点赞量
      */
     private Integer likeCount;
+    private String shopColor;
+    private String shopTag;
+    private String shopSubname;
 }

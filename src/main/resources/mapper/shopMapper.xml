@@ -11,7 +11,7 @@
         where id = #{id}
     </update>
     <select id="queryShopPage" resultType="com.zxn.chain.dto.ShopDto">
-        select shop.id,shop_name,shop_num,supplier_name as shop_supplier,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,shop.remarks,picture
+        select shop.id,shop_name,shop_num,supplier_name as shop_supplier,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,shop.remarks,picture,shop_color,shop_tag,shop_subname
         from shop
         left join
         supplier
@@ -55,7 +55,7 @@
         where id = #{id}
     </update>
     <select id="selectShopById" resultType="com.zxn.chain.dto.ShopDto">
-        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture,shop_color,shop_tag,shop_subname
         from shop
         where id = #{id} and status = 1;
     </select>
@@ -90,7 +90,7 @@
         where shop_num = #{shopNum} and status = 1;
     </select>
     <select id="queryShop" resultType="com.zxn.chain.dto.ShopKeyQueryDto">
-        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture,shop_color,shop_tag,shop_subname
         from shop
         where shop_name like '%${keyWords}%';
     </select>

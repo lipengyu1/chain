@@ -52,5 +52,7 @@ public class Shop {
      * 备注
      */
     private String remarks;
-
+    private String shopColor;
+    private String shopTag;
+    private String shopSubname;
 }
