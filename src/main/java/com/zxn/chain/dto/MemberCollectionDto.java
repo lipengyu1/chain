@@ -37,4 +37,7 @@ public class MemberCollectionDto implements Serializable {
      * 创建时间
      */
     private LocalDateTime createTime;
+    private String shopColor;
+    private String shopTag;
+    private String shopSubname;
 }

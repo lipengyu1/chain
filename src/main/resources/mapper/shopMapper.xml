@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zxn.chain.dao.ShopDao">
     <insert id="saveShop" parameterType="com.zxn.chain.dto.ShopDto">
-        insert into shop(id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture)
-        values (#{id},#{shopName},#{shopNum},#{shopSupplierId},#{shopBase},#{restockingPrice},#{sellPrice},#{quantity},#{category},#{remarks},#{picture})
+        insert into shop(id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture,shop_color,shop_tag,shop_subname)
+        values (#{id},#{shopName},#{shopNum},#{shopSupplierId},#{shopBase},#{restockingPrice},#{sellPrice},#{quantity},#{category},#{remarks},#{picture},#{shopColor},#{shopTag},#{shopSubname})
     </insert>
     <update id="removeShop" parameterType="com.zxn.chain.entity.Shop">
         update shop
@@ -51,7 +51,10 @@
             picture = #{picture},
             quantity = #{quantity},
             category = #{category},
-            remarks = #{remarks}
+            remarks = #{remarks},
+            shop_color = #{shopColor},
+            shop_tag = #{shopTag},
+            shop_subname = #{shopSubname},
         where id = #{id}
     </update>
     <select id="selectShopById" resultType="com.zxn.chain.dto.ShopDto">
@@ -85,7 +88,7 @@
         where shop_num = #{shopNum};
     </update>
     <select id="selectShopByNum" resultType="com.zxn.chain.dto.ShopDto">
-        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture
+        select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture,shop_color,shop_tag,shop_subname
         from shop
         where shop_num = #{shopNum} and status = 1;
     </select>

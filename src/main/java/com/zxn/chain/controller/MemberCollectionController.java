@@ -68,6 +68,7 @@ public class MemberCollectionController {
     })
     public Response<BasePageResponse<MemberCollectionDto>> page(int pageNo, int pageSize,HttpServletRequest request){
         Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
+        System.out.println(memberNum);
         log.info("pageNo={},pageSize={},memberNum={}",pageNo,pageSize);
         BasePageResponse<MemberCollectionDto> response = memberCollectionService.queryCollectionPage(pageNo,pageSize,memberNum);
         return Response.success(response);

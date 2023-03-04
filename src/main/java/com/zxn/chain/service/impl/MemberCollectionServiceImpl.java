@@ -59,6 +59,9 @@ public class MemberCollectionServiceImpl implements MemberCollectionService {
             memberCollectionDto.setShopName(shopDto.getShopName());
             memberCollectionDto.setLikeCount(shopDto.getLikeCount());
             memberCollectionDto.setPicture(shopDto.getPicture());
+            memberCollectionDto.setShopColor(shopDto.getShopColor());
+            memberCollectionDto.setShopSubname(shopDto.getShopSubname());
+            memberCollectionDto.setShopTag(shopDto.getShopTag());
             queryListDetail.add(memberCollectionDto);
         }
         ArrayList<MemberCollectionDto> arrayList = new ArrayList<>(queryListDetail);
