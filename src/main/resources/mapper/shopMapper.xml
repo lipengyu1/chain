@@ -54,7 +54,7 @@
             remarks = #{remarks},
             shop_color = #{shopColor},
             shop_tag = #{shopTag},
-            shop_subname = #{shopSubname},
+            shop_subname = #{shopSubname}
         where id = #{id}
     </update>
     <select id="selectShopById" resultType="com.zxn.chain.dto.ShopDto">
