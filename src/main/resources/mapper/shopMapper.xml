@@ -72,20 +72,20 @@
         where shop_num = #{shopId} and status = 1;
     </select>
     <select id="querySellPrice" resultType="decimal">
-        select sell_price from shop where shop_num = #{shopNum};
+        select sell_price from shop where shop_num = #{shopNum} and status = 1;
     </select>
     <update id="delSalNum" parameterType="com.zxn.chain.entity.Stock">
         update shop
         set quantity = quantity-#{shopQuantity}
-        where shop_num = #{shopNum};
+        where shop_num = #{shopNum} and status = 1;
     </update>
     <select id="getRemainder" resultType="java.lang.Integer">
-        select quantity from shop where shop_num = #{shopNum};
+        select quantity from shop where shop_num = #{shopNum} and status = 1;
     </select>
     <update id="addSalNum" parameterType="com.zxn.chain.entity.Stock">
         update shop
         set quantity = quantity+#{shopQuantity}
-        where shop_num = #{shopNum};
+        where shop_num = #{shopNum} and status = 1;
     </update>
     <select id="selectShopByNum" resultType="com.zxn.chain.dto.ShopDto">
         select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture,shop_color,shop_tag,shop_subname
@@ -95,6 +95,6 @@
     <select id="queryShop" resultType="com.zxn.chain.dto.ShopKeyQueryDto">
         select id,shop_name,shop_num,shop_supplier_id,shop_base,restocking_price,sell_price,quantity,category,remarks,picture,shop_color,shop_tag,shop_subname
         from shop
-        where shop_name like '%${keyWords}%';
+        where shop_name like '%${keyWords}%' and status = 1;
     </select>
 </mapper>

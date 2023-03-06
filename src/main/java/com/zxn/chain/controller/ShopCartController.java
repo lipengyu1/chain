@@ -29,7 +29,7 @@ public class ShopCartController {
      * @return
      */
     @PostMapping("/add")
-    @ApiOperation(value = "购物车添加接口(前台)(需memberId)")
+    @ApiOperation(value = "购物车添加接口(前台)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "shopCart",value = "信息，通过id判断。id为null,购物中新建商品；id不为null,该商品存在，则加1" +
                     "请求示例{\n" +
