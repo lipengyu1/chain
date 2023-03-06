@@ -133,7 +133,7 @@ public class ShopController {
      * @return
      */
     @GetMapping("/querynews")
-    @ApiOperation(value = "搜索框查询文章(前台)")
+    @ApiOperation(value = "搜索框查询商品(前台)")
     public Response<ArrayList> queryNews(@RequestParam String keyWords,HttpServletRequest request){
         Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         ArrayList<ShopKeyQueryDto> list = shopService.queryShop(keyWords);
