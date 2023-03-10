@@ -28,8 +28,9 @@ class ChainApplicationTests {
         Map<String, Object> info = new HashMap<>();
         //生成token
 //        String member= "1004";
-        String member= "1002";
+        String member= "1001";
         Long memberNum = Long.valueOf(member);
+//        Long memberNum = null;
         String token = JwtUtils.sign(memberNum, info);
         System.out.println(token);;
     }

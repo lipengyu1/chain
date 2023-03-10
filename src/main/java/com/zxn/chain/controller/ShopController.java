@@ -114,7 +114,6 @@ public class ShopController {
      * @param shopId
      * @return
      */
-//    @Cacheable(value = "shopCache",key = "#shopId+'_'+#memberNum")
     @Cacheable(value = "shopCache",key = "#request.getHeader('token')+'_'+#shopId")
     @GetMapping("/a")
     @ApiOperation(value = "查询商品接口(id)查询商品详细内容并保存浏览记录(前台)(可用于首页查看商品、历史记录中查看商品)")

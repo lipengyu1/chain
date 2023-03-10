@@ -59,8 +59,7 @@ public class MemberCollectionController {
      * @param pageSize
      * @return
      */
-//    @Cacheable(value = "shopCollectionCache",key = "#memberNum+'_'+'collection'")
-    @Cacheable(value = "shopCollectionCache",key = "#request.getHeader('token')+'_'+'collection'")
+    @Cacheable(value = "shopCollectionCache",key = "#request.getHeader('token')+'_'+'shopCollection'")
     @GetMapping("/page")
     @ApiOperation(value = "分页查询收藏接口(前台)")
     @ApiImplicitParams({

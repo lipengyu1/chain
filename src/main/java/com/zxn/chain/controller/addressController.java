@@ -59,7 +59,6 @@ public class addressController {
      * @param pageSize
      * @return
      */
-//    @Cacheable(value = "addressCache",key = "#memberNum+'_'+'address'")
     @Cacheable(value = "addressCache",key = "#request.getHeader('token')+'_'+'address'")
     @GetMapping("/page")
     @ApiOperation(value = "分页查询地址接口(前台)")
