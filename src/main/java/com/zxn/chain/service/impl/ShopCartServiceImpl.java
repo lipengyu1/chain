@@ -31,8 +31,11 @@ public class ShopCartServiceImpl implements ShopCartService {
     public void addShopCart(ShopCart shopCart) {
         shopCart.setId(snowService.getId());
         shopCart.setCreateTime(LocalDateTime.now());
+        System.out.println("...."+shopCart.getMoney());
         BigDecimal sellPrice = shopDao.querySellPrice(shopCart.getShopNum());
         shopCart.setMoney(sellPrice);
+        shopCart.setShopQuantity(1);
+        System.out.println("......."+sellPrice);
         shopCartDao.saveShopCart(shopCart);
     }
     @Override
