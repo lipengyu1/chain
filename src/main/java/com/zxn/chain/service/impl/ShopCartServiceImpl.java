@@ -6,6 +6,7 @@ import com.zxn.chain.dao.ShopCartDao;
 import com.zxn.chain.dao.ShopDao;
 import com.zxn.chain.dao.StockDao;
 import com.zxn.chain.dto.OrdersDto;
+import com.zxn.chain.dto.ShopDto;
 import com.zxn.chain.entity.ShopCart;
 import com.zxn.chain.service.ShopCartService;
 import com.zxn.chain.service.SnowService;
@@ -31,11 +32,12 @@ public class ShopCartServiceImpl implements ShopCartService {
     public void addShopCart(ShopCart shopCart) {
         shopCart.setId(snowService.getId());
         shopCart.setCreateTime(LocalDateTime.now());
-        System.out.println("...."+shopCart.getMoney());
         BigDecimal sellPrice = shopDao.querySellPrice(shopCart.getShopNum());
+        ShopDto s = shopDao.getShopPic(shopCart.getShopNum());
+        System.out.println(s);
+        shopCart.setPicture(s.getPicture());
         shopCart.setMoney(sellPrice);
         shopCart.setShopQuantity(1);
-        System.out.println("......."+sellPrice);
         shopCartDao.saveShopCart(shopCart);
     }
     @Override

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zxn.chain.dao.ShopCartDao">
     <insert id="saveShopCart" parameterType="com.zxn.chain.entity.ShopCart">
-        insert into shop_cart (id,member_id,member_name,shop_num,shop_name,shop_quantity,member_tel,money,create_time)
-        values (#{id},#{memberId},#{memberName}, #{shopNum}, #{shopName},#{shopQuantity},#{memberTel},#{money},#{createTime});
+        insert into shop_cart (id,member_id,member_name,shop_num,shop_name,shop_quantity,member_tel,money,create_time,picture)
+        values (#{id},#{memberId},#{memberName}, #{shopNum}, #{shopName},#{shopQuantity},#{memberTel},#{money},#{createTime},#{picture});
     </insert>
     <select id="queryShopById" resultType="com.zxn.chain.entity.ShopCart">
         select * from shop_cart

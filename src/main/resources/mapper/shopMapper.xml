@@ -97,4 +97,9 @@
         from shop
         where shop_name like '%${keyWords}%' and status = 1;
     </select>
+    <select id="getShopPic" resultType="com.zxn.chain.dto.ShopDto">
+        select picture
+        from shop
+        where shop_num = #{shopNum} and status = 1;
+    </select>
 </mapper>

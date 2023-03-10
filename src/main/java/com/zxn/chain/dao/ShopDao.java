@@ -36,4 +36,6 @@ public interface ShopDao {
     ShopDto selectShopByNum(Long shopNum);
 
     ArrayList<ShopKeyQueryDto> queryShop(String keyWords);
+
+    ShopDto getShopPic(Long shopNum);
 }

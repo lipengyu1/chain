@@ -40,4 +40,8 @@ public class ShopCart {
      * 创建时间
      */
     private LocalDateTime createTime;
+    /**
+     * 图片
+     */
+    private String picture;
 }
