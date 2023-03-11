@@ -40,7 +40,11 @@ public class OrdersServiceImpl implements OrdersService {
         //获取地址详细信息
         for (OrdersDto ordersDto : queryList) {
             Address address = addressDao.selectAddressById(ordersDto.getAddressId());
-            ordersDto.setAddress(address.getAddress());
+            if (address == null){
+                ordersDto.setAddress("暂无地址");
+            }else {
+                ordersDto.setAddress(address.getAddress());
+            }
         }
         ArrayList<OrdersDto> arrayList = new ArrayList<>(queryList);
         int totalCount = orderDao.queryOrderCount(pageNo1,pageSize,orderStatus,memberNum);

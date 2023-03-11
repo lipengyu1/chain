@@ -30,7 +30,7 @@ public class addressController {
      * 新增地址
      * @return
      */
-    @CacheEvict(value = "addressCache",allEntries = true)
+//    @CacheEvict(value = "addressCache",allEntries = true)
     @PostMapping
     @ApiOperation(value = "新增地址接口(前台)")
     public Response<String> save(@RequestBody Address address, HttpServletRequest request){
@@ -45,7 +45,7 @@ public class addressController {
      * @param ids
      * @return
      */
-    @CacheEvict(value = "addressCache",allEntries = true)
+//    @CacheEvict(value = "addressCache",allEntries = true)
     @PutMapping("/del")
     @ApiOperation(value = "删除地址接口(前台)")
     public Response<String> delete(@RequestParam Long[] ids){
@@ -59,7 +59,7 @@ public class addressController {
      * @param pageSize
      * @return
      */
-    @Cacheable(value = "addressCache",key = "#request.getHeader('token')+'_'+'address'")
+//    @Cacheable(value = "addressCache",key = "#request.getHeader('token')+'_'+'address'")
     @GetMapping("/page")
     @ApiOperation(value = "分页查询地址接口(前台)")
     @ApiImplicitParams({
@@ -78,7 +78,7 @@ public class addressController {
      * @param address
      * @return
      */
-    @CacheEvict(value = "addressCache",allEntries = true)
+//    @CacheEvict(value = "addressCache",allEntries = true)
     @PutMapping
     @ApiOperation(value = "修改地址接口(前台)")
     public Response<String> update(@RequestBody Address address){
