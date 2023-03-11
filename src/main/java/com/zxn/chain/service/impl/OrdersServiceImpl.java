@@ -42,6 +42,7 @@ public class OrdersServiceImpl implements OrdersService {
             Address address = addressDao.selectAddressById(ordersDto.getAddressId());
             if (address == null){
                 ordersDto.setAddress("暂无地址");
+
             }else {
                 ordersDto.setAddress(address.getAddress());
             }
