@@ -18,7 +18,7 @@
                 and member_id = #{memberNum}
             </if>
         </where>
-        order by id  limit ${pageNo}, ${pageSize};
+        order by order_time desc  limit ${pageNo}, ${pageSize};
     </select>
     <select id="queryOrderCount" resultType="java.lang.Integer">
         select count(*)
