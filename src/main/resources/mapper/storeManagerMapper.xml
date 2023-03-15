@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zxn.chain.dao.StoreManagerDao">
     <select id="queryStoreManagerPage"  resultType="com.zxn.chain.dto.StoreManagerDto">
-        select id,store_employee_number,store_employee_name,username,store_employee_tel,
+        select id,store_employee_number,store_employee_name,username,store_employee_tel,email,
                store_location,store_sale_status,store_complains,remarks,role from storemanager
         <where>
             status = 1
@@ -45,7 +45,8 @@
             store_sale_status = #{storeSaleStatus},
             store_location = #{storeLocation},
             store_complains = #{storeComplains},
-            remarks = #{remarks}
+            remarks = #{remarks},
+            email = #{email}
         where id = #{id}
     </update>
     <select id="storeManagerLogin" resultType="com.zxn.chain.entity.StoreManager">
