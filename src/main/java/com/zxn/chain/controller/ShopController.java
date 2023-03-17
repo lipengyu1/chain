@@ -134,7 +134,7 @@ public class ShopController {
      */
     @GetMapping("/querynews")
     @ApiOperation(value = "搜索框查询商品(前台)")
-    public Response<ArrayList> queryNews(@RequestParam String keyWords,HttpServletRequest request){
+    public Response<ArrayList> queryShop(@RequestParam String keyWords,HttpServletRequest request){
         Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
         ArrayList<ShopKeyQueryDto> list = shopService.queryShop(keyWords);
         //用户搜索记录保存
@@ -146,7 +146,7 @@ public class ShopController {
      * 查询用户搜索历史关键字
      * @return
      */
-        @GetMapping("/hiskeywds")
+    @GetMapping("/hiskeywds")
     @ApiOperation(value = "查询用户搜索历史关键字(前台)")
     public Response<List> queryHisKeyWds(HttpServletRequest request){
         Long memberNum = Long.valueOf(JwtUtils.getUserId(request.getHeader("token")));
