@@ -40,4 +40,8 @@ public class Member {
      * 备注
      */
     private String remarks;
+    /**
+     * 头像
+     */
+    private String avatar;
 }

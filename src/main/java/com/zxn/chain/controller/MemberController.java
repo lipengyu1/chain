@@ -110,7 +110,7 @@ public class MemberController {
      * @return
      */
     @PutMapping
-    @ApiOperation(value = "修改会员接口(后台)")
+    @ApiOperation(value = "修改会员接口(前后台)(换头像)")
     public Response<String> update(@RequestBody MemberDto memberDto){
         log.info(memberDto.toString());
         memberService.updateMember(memberDto);

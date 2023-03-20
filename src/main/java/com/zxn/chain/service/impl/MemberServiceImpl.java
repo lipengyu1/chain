@@ -28,6 +28,7 @@ public class MemberServiceImpl implements MemberService {
         if (member != null){
             throw new CustomException("该会员号已存在，请重新输入");
         }
+        memberDto.setAvatar("f01be015-7976-45b5-959c-bb9f6d6d1c43.png");
         memberDao.saveMember(memberDto);
     }
 
@@ -74,6 +75,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = new Member();
         member.setMemberTel(memberTel);
         member.setId(snowService.getId());
+        member.setAvatar("f01be015-7976-45b5-959c-bb9f6d6d1c43.png");
         memberDao.addMemberTel(member);
     }
 

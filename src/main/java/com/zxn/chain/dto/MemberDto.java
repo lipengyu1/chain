@@ -43,4 +43,8 @@ public class MemberDto implements Serializable {
      * token
      */
     private String token;
+    /**
+     * 头像
+     */
+    private String avatar;
 }

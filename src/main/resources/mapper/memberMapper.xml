@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zxn.chain.dao.MemberDao">
     <insert id="saveMember" parameterType="com.zxn.chain.dto.MemberDto">
-        insert into member (id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks)
-        values (#{id},#{memberNum},#{memberName},#{memberGrade},#{memberSex},#{memberStatus},#{memberTel},#{remarks});
+        insert into member (id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks,avatar)
+        values (#{id},#{memberNum},#{memberName},#{memberGrade},#{memberSex},#{memberStatus},#{memberTel},#{remarks},#{avatar});
     </insert>
     <update id="removeMember" parameterType="com.zxn.chain.dto.MemberDto">
         update member
@@ -11,7 +11,7 @@
         where id = #{id}
     </update>
     <select id="queryMemberPage" resultType="com.zxn.chain.dto.MemberDto">
-        select  id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks from member
+        select  id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks,avatar from member
         <where>
             status = 1
             <if test="memberName != null and memberName!= ''" >
@@ -49,11 +49,12 @@
             member_sex = #{memberSex},
             member_status = #{memberStatus},
             member_tel = #{memberTel},
-            remarks = #{remarks}
+            remarks = #{remarks},
+            avatar = #{avatar}
         where id = #{id}
     </update>
     <select id="selectMemberById" resultType="com.zxn.chain.dto.MemberDto">
-        select id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks
+        select id,member_num,member_name,member_grade,member_sex,member_status,member_tel,remarks,avatar
         from member where id = #{id} and status = 1;
     </select>
     <select id="selecrMemberByNum" resultType="com.zxn.chain.entity.Member">
@@ -63,8 +64,8 @@
         select * from member where member_tel = #{memberTel} and status = 1;
     </select>
     <insert id="addMemberTel" parameterType="com.zxn.chain.entity.Member">
-        insert into member (id,member_tel)
-        values (#{id},#{memberTel})
+        insert into member (id,member_tel,avatar)
+        values (#{id},#{memberTel},#{avatar})
     </insert>
     <update id="addMemberInfo" parameterType="com.zxn.chain.dto.MemberDto">
         update member
