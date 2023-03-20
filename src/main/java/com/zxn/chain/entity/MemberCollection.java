@@ -23,4 +23,8 @@ public class MemberCollection {
      * 状态
      */
     private Integer status;
+    /**
+     * 商品id
+     */
+    private Long shopId;
 }

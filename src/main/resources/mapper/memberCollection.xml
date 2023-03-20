@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zxn.chain.dao.MemberCollectionDao">
     <insert id="addCollection" parameterType="com.zxn.chain.entity.MemberCollection">
-        insert into member_collection(id,shop_num,member_num,create_time)
-        values (#{id},#{shopNum},#{memberNum},#{createTime});
+        insert into member_collection(id,shop_num,member_num,create_time,shop_id)
+        values (#{id},#{shopNum},#{memberNum},#{createTime},#{shopId});
     </insert>
     <update id="delCollection" parameterType="com.zxn.chain.entity.MemberCollection">
         update member_collection
@@ -11,7 +11,7 @@
         where id = #{id};
     </update>
     <select id="queryCollectionPage" resultType="com.zxn.chain.entity.MemberCollection">
-        select id,shop_num,member_num,create_time
+        select id,shop_num,member_num,create_time,shop_id
         from member_collection
         where status = 1 and member_num = #{memberNum}
         order by id  limit ${pageNo}, ${pageSize};

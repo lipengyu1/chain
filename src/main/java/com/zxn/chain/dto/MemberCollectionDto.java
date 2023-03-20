@@ -40,4 +40,8 @@ public class MemberCollectionDto implements Serializable {
     private String shopColor;
     private String shopTag;
     private String shopSubname;
+    /**
+     * 商品id
+     */
+    private Long shopId;
 }
