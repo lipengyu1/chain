@@ -47,6 +47,7 @@ public class MemberCollectionServiceImpl implements MemberCollectionService {
         List<MemberCollectionDto> queryListDetail = new ArrayList<>();
         for (MemberCollection memberCollection : queryList) {
             Long shopNum = memberCollection.getShopNum();
+            System.out.println(shopNum);
             ShopDto shopDto = shopDao.selectShopByNum(shopNum);
             Integer num = shopLikeDao.selectShopCountLike(shopDto.getId());
             shopDto.setLikeCount(num);
@@ -62,6 +63,7 @@ public class MemberCollectionServiceImpl implements MemberCollectionService {
             memberCollectionDto.setShopColor(shopDto.getShopColor());
             memberCollectionDto.setShopSubname(shopDto.getShopSubname());
             memberCollectionDto.setShopTag(shopDto.getShopTag());
+            memberCollectionDto.setShopId(shopDto.getId());
             queryListDetail.add(memberCollectionDto);
         }
         ArrayList<MemberCollectionDto> arrayList = new ArrayList<>(queryListDetail);
