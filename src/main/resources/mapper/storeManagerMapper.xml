@@ -72,4 +72,13 @@
         select store_employee_name from storemanager
         where store_employee_number = #{managerId} and status = 1;
     </select>
+    <insert id="add" parameterType="com.zxn.chain.entity.StoreManager">
+        insert into storemanager (id,store_employee_number,store_employee_name,username,password,store_employee_tel,email,
+                                  store_location,store_sale_status,store_complains,remarks,role)
+        values (#{id},#{storeEmployeeNumber},#{storeEmployeeName},#{username},#{password},#{storeEmployeeTel},#{email},#{storeLocation},#{storeSaleStatus},#{storeComplains},#{remarks},#{role})
+    </insert>
+    <select id="getEmpNum" resultType="com.zxn.chain.entity.StoreManager">
+        select store_employee_number from storemanager
+        where store_employee_number = #{storeEmployeeNumber}
+    </select>
 </mapper>

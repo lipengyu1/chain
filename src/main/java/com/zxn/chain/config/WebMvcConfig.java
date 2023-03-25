@@ -96,7 +96,9 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
                 "/swagger-resources",
                 "/v2/api-docs",
                 "/common/upload",
-                "/common/download"
+                "/common/download",
+                "/storemanager/add",
+                "/user/add"
         );
     }
 

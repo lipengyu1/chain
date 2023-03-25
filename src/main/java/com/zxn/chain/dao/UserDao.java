@@ -23,4 +23,6 @@ public interface UserDao {
     User getUserEmail(String managerEmail);
 
     void userRegister(User user);
+
+    void add(User user);
 }

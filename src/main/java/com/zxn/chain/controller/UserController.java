@@ -31,6 +31,18 @@ public class UserController {
     private UserServiceImpl userService;
 
     /**
+     * 管理员添加
+     * @param user
+     * @return
+     */
+    @PostMapping("/add")
+    @ApiOperation(value = "管理员添加")
+    public Response<String> addUSer(@RequestBody User user){
+        log.info(user.toString());
+        return userService.addUser(user);
+    }
+
+    /**
      * 员工退出
      * @param request
      * @return

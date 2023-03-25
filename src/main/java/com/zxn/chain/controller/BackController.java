@@ -45,7 +45,7 @@ public class BackController {
     @Autowired
     private PermissionsServiceImpl permissionsService;
     /**
-     * 通用注册
+     * 通用注册(停用)
      * @return
      */
     @PutMapping("/register")

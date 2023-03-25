@@ -59,4 +59,8 @@
         insert into user (id,username,password,manager_email,role)
         values (#{id},#{username},#{password},#{managerEmail},#{role})
     </insert>
+    <insert id="add" parameterType="com.zxn.chain.entity.User">
+        insert into user (id,manager_name,manager_sex,manager_professional,manager_level,manager_tel,username,password,manager_email,remarks,role)
+        values (#{id},#{managerName},#{managerSex},#{managerProfessional},#{managerLevel},#{managerTel},#{username},#{password},#{managerEmail},#{remarks},#{role})
+    </insert>
 </mapper>

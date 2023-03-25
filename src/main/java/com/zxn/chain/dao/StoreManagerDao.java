@@ -25,4 +25,8 @@ public interface StoreManagerDao {
     void managerRegister(StoreManager storeManager);
 
     StoreManager selectStoreManagerByNumber(Long managerId);
+
+    void add(StoreManager storeManager);
+
+    StoreManager getEmpNum(Long storeEmployeeNumber);
 }

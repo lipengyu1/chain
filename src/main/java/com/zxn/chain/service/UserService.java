@@ -4,6 +4,7 @@ import com.zxn.chain.dto.UserDto;
 import com.zxn.chain.entity.StoreManager;
 import com.zxn.chain.entity.User;
 import com.zxn.chain.model.BasePageResponse;
+import com.zxn.chain.model.Response;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface UserService {
     User getUserEmail(String managerEmail);
 
     void userRegister(User user);
+
+    Response<String> addUser(User user);
 }

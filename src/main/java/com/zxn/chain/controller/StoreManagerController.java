@@ -25,6 +25,18 @@ public class StoreManagerController {
     private StoreManagerServiceImpl storeManagerService;
 
     /**
+     * 员工添加
+     * @param storeManager
+     * @return
+     */
+    @PostMapping("/add")
+    @ApiOperation(value = "员工添加")
+    public Response<String> addStoreManager(@RequestBody StoreManager storeManager){
+        log.info(storeManager.toString());
+        return storeManagerService.addStoreManager(storeManager);
+    }
+
+    /**
      * 员工退出
      * @param request
      * @return

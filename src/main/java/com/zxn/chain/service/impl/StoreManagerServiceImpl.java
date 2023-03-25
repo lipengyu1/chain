@@ -4,6 +4,7 @@ import com.zxn.chain.dao.StoreManagerDao;
 import com.zxn.chain.dto.StoreManagerDto;
 import com.zxn.chain.entity.StoreManager;
 import com.zxn.chain.model.BasePageResponse;
+import com.zxn.chain.model.Response;
 import com.zxn.chain.service.SnowService;
 import com.zxn.chain.service.StoreManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +81,29 @@ public class StoreManagerServiceImpl implements StoreManagerService {
         storeManager.setPassword(password);
         storeManager.setId(snowService.getId());
         storeManagerDao.managerRegister(storeManager);
+    }
+
+    @Override
+    public Response<String> addStoreManager(StoreManager storeManager) {
+        StoreManager storeManager1 = storeManagerDao.storeManagerLogin(storeManager);
+        if (storeManager1 == null){
+            StoreManager email = storeManagerDao.getEmpEmail(storeManager.getEmail());
+            StoreManager num = storeManagerDao.getEmpNum(storeManager.getStoreEmployeeNumber());
+            if (email == null && num == null){
+                String password = storeManager.getPassword();
+                password = DigestUtils.md5DigestAsHex(password.getBytes());
+                storeManager.setPassword(password);
+                storeManager.setId(snowService.getId());
+                storeManager.setRole("员工");
+                storeManagerDao.add(storeManager);
+                return Response.success("添加成功");
+            }else if (email != null){
+                return Response.error("该邮箱已存在");
+            }else {
+                return Response.error("该员工编号已存在");
+            }
+        }else {
+            return Response.error("该账号已存在");
+        }
     }
 }

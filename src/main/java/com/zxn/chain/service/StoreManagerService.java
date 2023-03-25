@@ -3,6 +3,7 @@ package com.zxn.chain.service;
 import com.zxn.chain.dto.StoreManagerDto;
 import com.zxn.chain.entity.StoreManager;
 import com.zxn.chain.model.BasePageResponse;
+import com.zxn.chain.model.Response;
 
 public interface StoreManagerService {
     BasePageResponse<StoreManagerDto> queryStoreManagerPage(int pageNo, int pageSize, String storeEmployeeName, String storeSaleStatus);
@@ -20,4 +21,6 @@ public interface StoreManagerService {
     StoreManager getEmpEmail(String email);
 
     void managerRegister(StoreManager storeManager);
+
+    Response<String> addStoreManager(StoreManager storeManager);
 }

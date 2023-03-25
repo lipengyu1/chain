@@ -47,7 +47,7 @@ public class MemberCollectionServiceImpl implements MemberCollectionService {
         List<MemberCollectionDto> queryListDetail = new ArrayList<>();
         for (MemberCollection memberCollection : queryList) {
             Long shopNum = memberCollection.getShopNum();
-            System.out.println(shopNum);
+//            System.out.println(shopNum);
             ShopDto shopDto = shopDao.selectShopByNum(shopNum);
             Integer num = shopLikeDao.selectShopCountLike(shopDto.getId());
             shopDto.setLikeCount(num);

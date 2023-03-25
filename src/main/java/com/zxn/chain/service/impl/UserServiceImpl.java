@@ -5,6 +5,7 @@ import com.zxn.chain.dto.UserDto;
 import com.zxn.chain.entity.StoreManager;
 import com.zxn.chain.entity.User;
 import com.zxn.chain.model.BasePageResponse;
+import com.zxn.chain.model.Response;
 import com.zxn.chain.service.SnowService;
 import com.zxn.chain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,26 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         user.setId(snowService.getId());
         userDao.userRegister(user);
+    }
+
+    @Override
+    public Response<String> addUser(User user) {
+        User user1 = userDao.userLogin(user);
+        if (user1 == null){
+            User email = userDao.getUserEmail(user.getManagerEmail());
+            if (email == null){
+                String password = user.getPassword();
+                password = DigestUtils.md5DigestAsHex(password.getBytes());
+                user.setPassword(password);
+                user.setId(snowService.getId());
+                user.setRole("管理员");
+                userDao.add(user);
+                return Response.success("添加成功");
+            }else{
+                return Response.error("该邮箱已存在");
+            }
+        }else {
+            return Response.error("该账号已存在");
+        }
     }
 }
