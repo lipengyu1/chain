@@ -21,4 +21,7 @@
         from member_collection
         where status = 1 and member_num = #{memberNum}
     </select>
+    <select id="queryMemCollection" resultType="com.zxn.chain.entity.MemberCollection">
+        select shop_num,member_num from member_collection where  member_num = #{memberNum} and shop_num = #{shopNum} and status = 1
+    </select>
 </mapper>

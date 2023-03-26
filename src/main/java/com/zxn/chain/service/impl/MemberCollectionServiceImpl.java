@@ -1,5 +1,6 @@
 package com.zxn.chain.service.impl;
 
+import com.zxn.chain.common.CustomException;
 import com.zxn.chain.dao.MemberCollectionDao;
 import com.zxn.chain.dao.ShopDao;
 import com.zxn.chain.dao.ShopLikeDao;
@@ -27,6 +28,11 @@ public class MemberCollectionServiceImpl implements MemberCollectionService {
     SnowService snowService = new SnowService(1, 1);
     @Override
     public void addCollection(MemberCollection memberCollection) {
+        MemberCollection memberCollection1 = memberCollectionDao.queryMemCollection(memberCollection.getMemberNum(),memberCollection.getShopNum());
+        //若存在，则提示已收藏
+        if(memberCollection1 != null){
+            throw new CustomException("该商品已收藏");
+        }
         memberCollection.setCreateTime(LocalDateTime.now());
         memberCollection.setId(snowService.getId());
         memberCollectionDao.addCollection(memberCollection);

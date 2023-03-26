@@ -12,4 +12,6 @@ public interface MemberCollectionDao {
     List<MemberCollection> queryCollectionPage(int pageNo, int pageSize, Long memberNum);
 
     int queryCollectionPageCount(int pageNo, int pageSize, Long memberNum);
+
+    MemberCollection queryMemCollection(Long memberNum, Long shopNum);
 }
