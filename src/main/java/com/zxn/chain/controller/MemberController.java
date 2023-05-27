@@ -99,7 +99,7 @@ public class MemberController {
             @ApiImplicitParam(name = "memberStatus",value = "会员状态",required = false)
     })
     public Response<BasePageResponse<MemberDto>> page(int pageNo, int pageSize, String memberName, String memberNum,String memberStatus){
-        log.info("pageNo={},pageSize={},memberName={},memberNum={},memberStatus+{}",pageNo,pageSize,memberName,memberNum,memberStatus);
+        log.info("pageNo={},pageSize={},memberName={},memberNum={},memberStatus={}",pageNo,pageSize,memberName,memberNum,memberStatus);
         BasePageResponse<MemberDto> response = memberService.queryMemberPage(pageNo,pageSize,memberName,memberNum,memberStatus);
         return Response.success(response);
     }

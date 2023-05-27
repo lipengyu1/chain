@@ -97,7 +97,7 @@ public class RedisServiceImpl implements RedisService {
         String key = memberNum+"keywords";
         redisTemplate.opsForList().leftPush(key, KeyWords);
         Long size = redisTemplate.opsForList().size(memberNum);
-        if (size > 100) {
+        if (size > 9) {
             redisTemplate.opsForList().rightPop(memberNum);
         }
     }
